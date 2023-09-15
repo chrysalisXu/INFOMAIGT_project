@@ -31,6 +31,7 @@ Add scoreboard and some effect so players can know who won.
 5. pickable tools/upgrades
 6. limit on rotation speed of players.
 7. BattleFog
+8. Balancing the game(max speed, map size, etc).
 
 ## sound effect, BGM, beautify the game art style
 It is so boring to play it now... so please add them if you have some free time?
