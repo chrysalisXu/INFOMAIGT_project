@@ -14,7 +14,7 @@ namespace INFOMAIGT.Gameplay
         public bool alive = true;
         public Bullet(Vector3 position, Vector3 initVelocity, bool needRendering)
         {
-            radius = 0.2f;
+            radius = 0.5f;
             location = position;
             velocity = initVelocity;
             if (needRendering){

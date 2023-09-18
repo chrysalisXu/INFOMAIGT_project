@@ -10,12 +10,12 @@ namespace INFOMAIGT.Gameplay
     public class Player : Circle
     {
         public float orientation = 0;
-        public float maxVelocity = 0.02f;
+        public float maxVelocity = 0.2f;
 
-        public float MaxBulletSpeed = 0.05f;
+        public float MaxBulletSpeed = 0.5f;
 
         public Mesh artilleryMesh = null;
-        public float artilleryWidth = 0.1f;
+        public float artilleryWidth = 0.3f;
 
         public bool alive = true;
 
@@ -23,7 +23,7 @@ namespace INFOMAIGT.Gameplay
         {
             location = position;
             if (needRendering){
-                CreateCircle();
+                CreateFilledCircle();
                 UpdateMesh();
             }
         }
