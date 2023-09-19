@@ -49,7 +49,7 @@ namespace INFOMAIGT.Gameplay
 
         public void CreatePlayer(Vector3 position, int playerID)
         {
-            playerDict.Add(playerID, new Player(position, this==Instance));
+            playerDict.Add(playerID, new Player(position, this == Instance));
         }
 
         public void CreateBullet(int playerID)
@@ -66,7 +66,7 @@ namespace INFOMAIGT.Gameplay
                 MathF.Cos(player.orientation) * player.MaxBulletSpeed,
                 0
             ),
-            this==Instance));
+            this == Instance));
         }
 
         public void LogicalUpdate()
@@ -87,20 +87,24 @@ namespace INFOMAIGT.Gameplay
         {
             if (this != Instance) return; // TODO: switch to AI in AI prediction mode
             // move
-            if (Input.GetKey("w")){
-                playerDict[1].location += new Vector3 (0, playerDict[1].maxVelocity, 0);
+            if (Input.GetKey("w"))
+            {
+                playerDict[1].location += new Vector3(0, playerDict[1].maxVelocity, 0);
                 FixPlayerPosition(playerDict[1], KeyCode.UpArrow);
             }
-            if (Input.GetKey("a")){
-                playerDict[1].location += new Vector3 (-playerDict[1].maxVelocity, 0, 0);
+            if (Input.GetKey("a"))
+            {
+                playerDict[1].location += new Vector3(-playerDict[1].maxVelocity, 0, 0);
                 FixPlayerPosition(playerDict[1], KeyCode.LeftArrow);
             }
-            if (Input.GetKey("s")){
-                playerDict[1].location += new Vector3 (0, -playerDict[1].maxVelocity, 0);
+            if (Input.GetKey("s"))
+            {
+                playerDict[1].location += new Vector3(0, -playerDict[1].maxVelocity, 0);
                 FixPlayerPosition(playerDict[1], KeyCode.DownArrow);
             }
-            if (Input.GetKey("d")){
-                playerDict[1].location += new Vector3 (playerDict[1].maxVelocity, 0, 0);
+            if (Input.GetKey("d"))
+            {
+                playerDict[1].location += new Vector3(playerDict[1].maxVelocity, 0, 0);
                 FixPlayerPosition(playerDict[1], KeyCode.RightArrow);
             }
 
@@ -111,15 +115,15 @@ namespace INFOMAIGT.Gameplay
             // rotation
             Vector3 mouseDirection = pcCamera.ScreenToWorldPoint(Input.mousePosition) - playerDict[1].location;
             float rad = 0;
-            if (mouseDirection.y==0)
+            if (mouseDirection.y == 0)
             {
-                rad = MathF.PI/2;
-                if (mouseDirection.x<0) rad = -rad;
+                rad = MathF.PI / 2;
+                if (mouseDirection.x < 0) rad = -rad;
             }
             else
             {
-                rad = MathF.Atan(mouseDirection.x/mouseDirection.y);
-                if (mouseDirection.y<0)
+                rad = MathF.Atan(mouseDirection.x / mouseDirection.y);
+                if (mouseDirection.y < 0)
                     rad += MathF.PI;
             }
             playerDict[1].orientation = rad; // TODO: add max rotation speed;
@@ -136,13 +140,15 @@ namespace INFOMAIGT.Gameplay
 
         public void UpdateBullets()
         {
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
             {
                 b.LogicalUpdate();
-                foreach(var item in playerDict){
-                    if(!item.Value.alive) continue;
+                foreach (var item in playerDict)
+                {
+                    if (!item.Value.alive) continue;
                     Vector3 distance = b.location - item.Value.location;
-                    if (distance.sqrMagnitude < b.radius + item.Value.radius){
+                    if (distance.sqrMagnitude < b.radius + item.Value.radius)
+                    {
                         DestroyPlayer(item.Key);
                         b.alive = false;
                         break;
@@ -196,7 +202,7 @@ namespace INFOMAIGT.Gameplay
         public void HandleCollision()
         {
             // bullet X wall = bounce, using simple method to accelerate
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
             {
                 int wallID = MapManager.Instance.GetWallID(
                     (int)MathF.Floor(b.location.x / Wall.size),
@@ -225,43 +231,55 @@ namespace INFOMAIGT.Gameplay
             }
 
             // bullet X bullet = kill each other
-            for(int i=0; i<bulletList.Count; i++)
+            for (int i = 0; i < bulletList.Count; i++)
             {
                 if (!bulletList[i].alive) continue;
-                for(int j=i+1; j<bulletList.Count; j++)
+                for (int j = i + 1; j < bulletList.Count; j++)
                 {
                     if (!bulletList[j].alive) continue;
                     Vector3 distance = bulletList[i].location - bulletList[j].location;
-                    if (distance.sqrMagnitude < bulletList[i].radius + bulletList[j].radius){
+                    if (distance.sqrMagnitude < bulletList[i].radius + bulletList[j].radius)
+                    {
                         bulletList[i].alive = false;
                         bulletList[j].alive = false;
                         break;
                     }
                 }
             }
-            
+
         }
 
         public void DestroyPlayer(int playerID)
         {
             // TODO: UI display.
-            Debug.Log($"Player {playerID} Lost!");
-            playerDict[playerID].alive = false;
+
+            /****/
+            if (playerDict[playerID].health <= 0)
+            {
+                Debug.Log($"Player {playerID} Lost!");
+                playerDict[playerID].alive = false;
+            }
+            else
+            {
+                playerDict[playerID].health -= 1f;
+                if (playerDict[playerID].health == 0)
+                    playerDict[playerID].alive = false;
+            }
         }
 
         public void DestroyDeadBullets()
         {
             List<Bullet> removeList = new List<Bullet>();
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
                 if (!b.alive) removeList.Add(b);
-            foreach(Bullet b in removeList)
+            foreach (Bullet b in removeList)
                 bulletList.Remove(b);
         }
 
         void DisplayBullet()
         {
             RenderParams rp = new RenderParams(matBullet);
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
             {
                 b.UpdateMesh();
                 Graphics.RenderMesh(rp, b.circleMesh, 0, Matrix4x4.Translate(Vector3.zero));
@@ -273,10 +291,10 @@ namespace INFOMAIGT.Gameplay
             RenderParams pc_rp = new RenderParams(matPC);
             RenderParams ai_rp = new RenderParams(matAI);
             RenderParams rp;
-            foreach(var item in playerDict)
+            foreach (var item in playerDict)
             {
-                if(!item.Value.alive) continue;
-                if(item.Key == 1) rp = pc_rp;
+                if (!item.Value.alive) continue;
+                if (item.Key == 1) rp = pc_rp;
                 else rp = ai_rp;
                 item.Value.UpdateMesh();
                 Graphics.RenderMesh(rp, item.Value.circleMesh, 0, Matrix4x4.Translate(Vector3.zero));

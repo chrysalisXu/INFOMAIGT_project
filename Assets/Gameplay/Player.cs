@@ -19,10 +19,14 @@ namespace INFOMAIGT.Gameplay
 
         public bool alive = true;
 
+        /**/
+        public float health = 5;
+
         public Player(Vector3 position, bool needRendering)
         {
             location = position;
-            if (needRendering){
+            if (needRendering)
+            {
                 CreateFilledCircle();
                 UpdateMesh();
             }
@@ -31,7 +35,8 @@ namespace INFOMAIGT.Gameplay
         public void UpdateMesh()
         {
             base.UpdateMesh();
-            if (artilleryMesh == null){
+            if (artilleryMesh == null)
+            {
                 artilleryMesh = new Mesh();
                 artilleryMesh.vertices = new Vector3[] {
                     new Vector3(location.x - artilleryWidth, location.y, 0),
@@ -43,7 +48,8 @@ namespace INFOMAIGT.Gameplay
                     0, 1, 2, 1, 2, 3
                 };
             }
-            else{
+            else
+            {
                 var vertices = artilleryMesh.vertices;
                 vertices[0].x = location.x - artilleryWidth * MathF.Cos(orientation);
                 vertices[0].y = location.y + artilleryWidth * MathF.Sin(orientation);
