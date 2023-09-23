@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using INFOMAIGT.Map;
+using INFOMAIGT.AI;
 
 namespace INFOMAIGT.Gameplay
 {
@@ -49,7 +50,11 @@ namespace INFOMAIGT.Gameplay
 
         public void CreatePlayer(Vector3 position, int playerID)
         {
-            playerDict.Add(playerID, new Player(position, this==Instance));
+            playerDict.Add(playerID, new Player(
+                position,
+                this==Instance,
+                AIManager.Instance.CreateAI(playerID))
+            );
         }
 
         public void CreateBullet(int playerID)
@@ -85,23 +90,30 @@ namespace INFOMAIGT.Gameplay
 
         public void MovePC()
         {
+            Player pc = playerDict[1];
             if (this != Instance) return; // TODO: switch to AI in AI prediction mode
+            if (!pc.alive) return;
+
             // move
             if (Input.GetKey("w")){
-                playerDict[1].location += new Vector3 (0, playerDict[1].maxVelocity, 0);
-                FixPlayerPosition(playerDict[1], KeyCode.UpArrow);
+                pc.location = MapManager.Instance.GetFixedPlayerPosition(
+                    pc.location, KeyCode.UpArrow, pc.maxVelocity, pc.radius
+                );
             }
             if (Input.GetKey("a")){
-                playerDict[1].location += new Vector3 (-playerDict[1].maxVelocity, 0, 0);
-                FixPlayerPosition(playerDict[1], KeyCode.LeftArrow);
+                pc.location = MapManager.Instance.GetFixedPlayerPosition(
+                    pc.location, KeyCode.LeftArrow, pc.maxVelocity, pc.radius
+                );
             }
             if (Input.GetKey("s")){
-                playerDict[1].location += new Vector3 (0, -playerDict[1].maxVelocity, 0);
-                FixPlayerPosition(playerDict[1], KeyCode.DownArrow);
+                pc.location = MapManager.Instance.GetFixedPlayerPosition(
+                    pc.location, KeyCode.DownArrow, pc.maxVelocity, pc.radius
+                );
             }
             if (Input.GetKey("d")){
-                playerDict[1].location += new Vector3 (playerDict[1].maxVelocity, 0, 0);
-                FixPlayerPosition(playerDict[1], KeyCode.RightArrow);
+                pc.location = MapManager.Instance.GetFixedPlayerPosition(
+                    pc.location, KeyCode.RightArrow, pc.maxVelocity, pc.radius
+                );
             }
 
             // menu
@@ -109,7 +121,7 @@ namespace INFOMAIGT.Gameplay
                 Application.Quit();
 
             // rotation
-            Vector3 mouseDirection = pcCamera.ScreenToWorldPoint(Input.mousePosition) - playerDict[1].location;
+            Vector3 mouseDirection = pcCamera.ScreenToWorldPoint(Input.mousePosition) - pc.location;
             float rad = 0;
             if (mouseDirection.y==0)
             {
@@ -122,7 +134,7 @@ namespace INFOMAIGT.Gameplay
                 if (mouseDirection.y<0)
                     rad += MathF.PI;
             }
-            playerDict[1].orientation = rad; // TODO: add max rotation speed;
+            pc.orientation = rad; // TODO: add max rotation speed;
 
             // shoot!
             if (Input.GetMouseButtonDown(0))
@@ -131,7 +143,9 @@ namespace INFOMAIGT.Gameplay
 
         public void MoveAI()
         {
-            // TODO: AI
+            foreach ((int id, Player player) in playerDict){
+                if (id!=1) player.ai.Move();
+            }
         }
 
         public void UpdateBullets()
@@ -142,7 +156,7 @@ namespace INFOMAIGT.Gameplay
                 foreach(var item in playerDict){
                     if(!item.Value.alive) continue;
                     Vector3 distance = b.location - item.Value.location;
-                    if (distance.sqrMagnitude < b.radius + item.Value.radius){
+                    if (distance.magnitude < b.radius + item.Value.radius){
                         DestroyPlayer(item.Key);
                         b.alive = false;
                         break;
@@ -151,46 +165,7 @@ namespace INFOMAIGT.Gameplay
             }
         }
 
-        // stop player from passing walls like ghost
-        public void FixPlayerPosition(Player p, KeyCode direction)
-        {
-            if (direction == KeyCode.UpArrow)
-            {
-                int wallID = MapManager.Instance.GetWallID(
-                    (int)MathF.Floor(p.location.x / Wall.size),
-                    (int)MathF.Floor((p.location.y + p.radius) / Wall.size)
-                );
-                if (!MapManager.Instance.wallMap.ContainsKey(wallID)) return;
-                p.location.y = MathF.Floor((p.location.y + p.radius) / Wall.size) * Wall.size - p.radius;
-            }
-            else if (direction == KeyCode.DownArrow)
-            {
-                int wallID = MapManager.Instance.GetWallID(
-                    (int)MathF.Floor(p.location.x / Wall.size),
-                    (int)MathF.Floor((p.location.y - p.radius) / Wall.size)
-                );
-                if (!MapManager.Instance.wallMap.ContainsKey(wallID)) return;
-                p.location.y = MathF.Ceiling((p.location.y - p.radius) / Wall.size) * Wall.size + p.radius;
-            }
-            else if (direction == KeyCode.LeftArrow)
-            {
-                int wallID = MapManager.Instance.GetWallID(
-                    (int)MathF.Floor((p.location.x - p.radius) / Wall.size),
-                    (int)MathF.Floor(p.location.y / Wall.size)
-                );
-                if (!MapManager.Instance.wallMap.ContainsKey(wallID)) return;
-                p.location.x = MathF.Ceiling((p.location.x - p.radius) / Wall.size) * Wall.size + p.radius;
-            }
-            else if (direction == KeyCode.RightArrow)
-            {
-                int wallID = MapManager.Instance.GetWallID(
-                    (int)MathF.Floor((p.location.x + p.radius) / Wall.size),
-                    (int)MathF.Floor(p.location.y / Wall.size)
-                );
-                if (!MapManager.Instance.wallMap.ContainsKey(wallID)) return;
-                p.location.x = MathF.Floor((p.location.x + p.radius) / Wall.size) * Wall.size - p.radius;
-            }
-        }
+        
 
 
         public void HandleCollision()
@@ -232,7 +207,7 @@ namespace INFOMAIGT.Gameplay
                 {
                     if (!bulletList[j].alive) continue;
                     Vector3 distance = bulletList[i].location - bulletList[j].location;
-                    if (distance.sqrMagnitude < bulletList[i].radius + bulletList[j].radius){
+                    if (distance.magnitude < bulletList[i].radius + bulletList[j].radius){
                         bulletList[i].alive = false;
                         bulletList[j].alive = false;
                         break;

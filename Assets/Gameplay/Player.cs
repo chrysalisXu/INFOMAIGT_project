@@ -5,27 +5,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using INFOMAIGT.AI;
+
 namespace INFOMAIGT.Gameplay
 {
     public class Player : Circle
     {
         public float orientation = 0;
         public float maxVelocity = 0.2f;
+        public float maxRotationSpeed = 0.1f;
 
         public float MaxBulletSpeed = 0.5f;
 
         public Mesh artilleryMesh = null;
         public float artilleryWidth = 0.3f;
 
+        public BaseAI ai;
+
         public bool alive = true;
 
-        public Player(Vector3 position, bool needRendering)
+        public Player(Vector3 position, bool needRendering, BaseAI initAI)
         {
             location = position;
             if (needRendering){
                 CreateFilledCircle();
                 UpdateMesh();
             }
+            ai = initAI;
+        }
+
+        public float rotate(float targetOrientation)
+        {
+
+            float direction = 100;
+            return 0;
+            // TODO: fix before ai!
         }
 
         public void UpdateMesh()
