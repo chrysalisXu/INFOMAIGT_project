@@ -122,13 +122,15 @@ namespace INFOMAIGT.Gameplay
 
         public void UpdateBullets()
         {
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
             {
                 b.LogicalUpdate();
-                foreach(var item in playerDict){
-                    if(!item.Value.alive) continue;
+                foreach (var item in playerDict)
+                {
+                    if (!item.Value.alive) continue;
                     Vector3 distance = b.location - item.Value.location;
-                    if (distance.magnitude < b.radius + item.Value.radius){
+                    if (distance.magnitude < b.radius + item.Value.radius)
+                    {
                         DestroyPlayer(item.Key);
                         b.alive = false;
                         break;
@@ -143,7 +145,7 @@ namespace INFOMAIGT.Gameplay
         public void HandleCollision()
         {
             // bullet X wall = bounce, using simple method to accelerate
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
             {
                 int wallID = MapManager.Instance.GetWallID(
                     (int)MathF.Floor(b.location.x / Wall.size),
@@ -172,42 +174,53 @@ namespace INFOMAIGT.Gameplay
             }
 
             // bullet X bullet = kill each other
-            for(int i=0; i<bulletList.Count; i++)
+            for (int i = 0; i < bulletList.Count; i++)
             {
                 if (!bulletList[i].alive) continue;
-                for(int j=i+1; j<bulletList.Count; j++)
+                for (int j = i + 1; j < bulletList.Count; j++)
                 {
                     if (!bulletList[j].alive) continue;
                     Vector3 distance = bulletList[i].location - bulletList[j].location;
-                    if (distance.magnitude < bulletList[i].radius + bulletList[j].radius){
+                    if (distance.magnitude < bulletList[i].radius + bulletList[j].radius)
+                    {
                         bulletList[i].alive = false;
                         bulletList[j].alive = false;
                         break;
                     }
                 }
             }
-            
+
         }
 
         public void DestroyPlayer(int playerID)
         {
             // TODO: UI display.
-            playerDict[playerID].alive = false;
+            if (playerDict[playerID].health <= 0)
+            {
+                Debug.Log($"Player {playerID} Lost!");
+                playerDict[playerID].alive = false;
+            }
+            else
+            {
+                playerDict[playerID].health -= 1f;
+                if (playerDict[playerID].health == 0)
+                    playerDict[playerID].alive = false;
+            }
         }
 
         public void DestroyDeadBullets()
         {
             List<Bullet> removeList = new List<Bullet>();
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
                 if (!b.alive) removeList.Add(b);
-            foreach(Bullet b in removeList)
+            foreach (Bullet b in removeList)
                 bulletList.Remove(b);
         }
 
         void DisplayBullet()
         {
             RenderParams rp = new RenderParams(matBullet);
-            foreach(Bullet b in bulletList)
+            foreach (Bullet b in bulletList)
             {
                 b.UpdateMesh();
                 Graphics.RenderMesh(rp, b.circleMesh, 0, Matrix4x4.Translate(Vector3.zero));
@@ -219,10 +232,10 @@ namespace INFOMAIGT.Gameplay
             RenderParams pc_rp = new RenderParams(matPC);
             RenderParams ai_rp = new RenderParams(matAI);
             RenderParams rp;
-            foreach(var item in playerDict)
+            foreach (var item in playerDict)
             {
-                if(!item.Value.alive) continue;
-                if(item.Key == 1) rp = pc_rp;
+                if (!item.Value.alive) continue;
+                if (item.Key == 1) rp = pc_rp;
                 else rp = ai_rp;
                 item.Value.UpdateMesh();
                 Graphics.RenderMesh(rp, item.Value.circleMesh, 0, Matrix4x4.Translate(Vector3.zero));
