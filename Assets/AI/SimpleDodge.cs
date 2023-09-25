@@ -12,7 +12,28 @@ namespace INFOMAIGT.AI
 {
     public class SimpleDodge
     {
-        public static Vector3 Dodge(Player myself, KeyCode closingDirection, float closingWeight, float suicideThreshold)
+        // weight on distance
+        public static float HitPathWeight(Bullet bullet, Player player, Vector3 newPos)
+        {
+            Vector3 distance = newPos - bullet.location;
+            Vector3 closestPoint = Vector3.Dot(bullet.velocity.normalized, distance) * bullet.velocity.normalized;
+            if (Vector3.Dot(closestPoint, distance) < 0) // no worry, bullet is moving in opposite direction
+                return 100f;
+            Vector3 closestDistanceVector = distance - closestPoint;
+            float closestDistance = Mathf.Max(closestDistanceVector.magnitude, 0.8f * player.maxVelocity); 
+
+            if (closestDistance > 2 * player.radius) // too far away
+                return 1f;
+            if (MapManager.Instance.RaycastAgainstWall(bullet.location, bullet.location + closestPoint)) // blocked by walls
+                return 1f;
+            if (closestDistance > player.radius)  // could be hit, be causious but don't overact.
+                return closestDistance / (2 * player.radius);
+            if (distance.magnitude / bullet.velocity.magnitude > 20) // will hit, but in miles away.
+                return MathF.Pow(closestDistance / (2 * player.radius), 2);
+            return MathF.Pow(closestDistance / (2 * player.radius), 10); // will be hit!!!
+        }
+
+        public static Vector3 Dodge(Player myself, KeyCode closingDirection, float closingWeight)
         {
             // posible options.
             Dictionary<Vector3, float> targetDict = new Dictionary<Vector3, float>();
@@ -59,13 +80,15 @@ namespace INFOMAIGT.AI
                 closingDirection == KeyCode.RightArrow ? closingWeight * 0.9f : 0
             );
 
-            (Vector3 moveResult, float directionWeight) target = (myself.location, suicideThreshold);
+            (Vector3 moveResult, float directionWeight) target = (myself.location, Single.MaxValue);
             foreach(var (pos, weight) in targetDict)
             {
                 float rawWeight = weight;
                 foreach(Bullet bullet in GameplayManager.Instance.bulletList)
                     // the weight of a bullet 10 meters away = 1 
-                    rawWeight += 100f/((bullet.location - pos).sqrMagnitude);
+                    rawWeight += 100f/(
+                        (bullet.location - pos).sqrMagnitude * SimpleDodge.HitPathWeight(bullet, myself, pos)
+                    );
                 // Debug.Log($"pos:{pos}, raw:{rawWeight}, weight:{weight}" );
                 
                 if (rawWeight < target.directionWeight)

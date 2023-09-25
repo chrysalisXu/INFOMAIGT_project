@@ -427,6 +427,7 @@ MonoBehaviour:
   settingsAI:
   - playerID: 2
     closingDistance: 20
+    shootingDistance: 100
     closingWeight: 0.1
     suicideThreshold: 10000000
 --- !u!4 &1777539419

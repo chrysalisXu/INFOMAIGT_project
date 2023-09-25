@@ -159,6 +159,25 @@ namespace INFOMAIGT.Map
             }
         }
 
+        // true if hit wall;
+        public bool RaycastAgainstWall(Vector3 from, Vector3 to)
+        {
+            Vector2Int minMapXY = GetMapXY(from);
+            Vector2Int maxMapXY = GetMapXY(to);
+            if (minMapXY.x > maxMapXY.x){var temp = minMapXY.x; minMapXY.x = maxMapXY.x; maxMapXY.x = temp;}
+            if (minMapXY.y > maxMapXY.y){var temp = minMapXY.y; minMapXY.y = maxMapXY.y; maxMapXY.y = temp;}
+            
+            foreach((int wallID, Wall wall) in wallMap)
+            {
+                if (wall.mapXY.x < minMapXY.x) continue;
+                if (wall.mapXY.y < minMapXY.y) continue;
+                if (wall.mapXY.x > maxMapXY.x) continue;
+                if (wall.mapXY.y > maxMapXY.y) continue;
+                if (wall.RaycastIsCollide(from, to)) return true;
+            }
+            return false;
+        }
+
         void Start()
         {
             // initiate a map

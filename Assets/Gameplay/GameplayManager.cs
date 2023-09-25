@@ -57,27 +57,15 @@ namespace INFOMAIGT.Gameplay
             );
         }
 
-        public void CreateBullet(int playerID)
-        {
-            Player player = playerDict[playerID];
-            bulletList.Add(new Bullet(
-            player.location + new Vector3(
-                MathF.Sin(player.orientation) * player.radius * 2,
-                MathF.Cos(player.orientation) * player.radius * 2,
-                0
-            ),
-            new Vector3(
-                MathF.Sin(player.orientation) * player.MaxBulletSpeed,
-                MathF.Cos(player.orientation) * player.MaxBulletSpeed,
-                0
-            ),
-            this==Instance));
-        }
+        
 
         public void LogicalUpdate()
         {
             // destroy bullets dead last frame
             DestroyDeadBullets();
+            // update status
+            foreach(Player player in playerDict.Values)
+                player.UpdateCooldown();
             // pc move
             MovePC();
             // ai move
@@ -116,29 +104,13 @@ namespace INFOMAIGT.Gameplay
                 );
             }
 
-            // menu
-            if (Input.GetKey("escape")) // TODO: MENU / Restart, now just quit the game
-                Application.Quit();
-
             // rotation
-            Vector3 mouseDirection = pcCamera.ScreenToWorldPoint(Input.mousePosition) - pc.location;
-            float rad = 0;
-            if (mouseDirection.y==0)
-            {
-                rad = MathF.PI/2;
-                if (mouseDirection.x<0) rad = -rad;
-            }
-            else
-            {
-                rad = MathF.Atan(mouseDirection.x/mouseDirection.y);
-                if (mouseDirection.y<0)
-                    rad += MathF.PI;
-            }
-            pc.orientation = rad; // TODO: add max rotation speed;
+            Vector3 mouseDirection =  - pc.location;
+            pc.rotateToward(pcCamera.ScreenToWorldPoint(Input.mousePosition));
 
             // shoot!
             if (Input.GetMouseButtonDown(0))
-                CreateBullet(1);
+                pc.Shoot(this);
         }
 
         public void MoveAI()
@@ -220,7 +192,6 @@ namespace INFOMAIGT.Gameplay
         public void DestroyPlayer(int playerID)
         {
             // TODO: UI display.
-            Debug.Log($"Player {playerID} Lost!");
             playerDict[playerID].alive = false;
         }
 
@@ -263,6 +234,9 @@ namespace INFOMAIGT.Gameplay
         void Update()
         {
             if (this != Instance) return;
+            // menu
+            if (Input.GetKey("escape")) // TODO: MENU / Restart, now just quit the game
+                Application.Quit();
             LogicalUpdate();
             DisplayBullet();
             DisplayPlayers();

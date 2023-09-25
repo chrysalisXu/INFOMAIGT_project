@@ -10,17 +10,15 @@ namespace INFOMAIGT.AI
     [Serializable]
     public struct AISetting {
         public int playerID;
-        public float closingDistance;  // how far ai will stop closing when it can shoot you, min 10
+        public float closingDistance;   // how far ai will stop closing when it can shoot you, min 10
+        public float shootingDistance;  // how far ai will start to shoot when it can shoot you, min 10
         public float closingWeight;     // how eager ai is when trying to move closer, min 0
-        public float suicideThreshold;  
-        // how early a ai will stop to dodge. the bigger the better.
-        // 1 means ai will stop with a bullet 10 meters away, 100 means 1 meters away.
 
         public AISetting(int id){
             playerID = id;
             closingDistance = 10;
+            shootingDistance = 10;
             closingWeight = 1;
-            suicideThreshold = 1000000; // surrender in harsh close combat
         }
     }
 

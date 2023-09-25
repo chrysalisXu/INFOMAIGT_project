@@ -24,6 +24,8 @@ namespace INFOMAIGT.Gameplay
 
         public bool alive = true;
 
+        public int maxCooldown, currentCooldown;
+
         public Player(Vector3 position, bool needRendering, BaseAI initAI)
         {
             location = position;
@@ -32,14 +34,51 @@ namespace INFOMAIGT.Gameplay
                 UpdateMesh();
             }
             ai = initAI;
+            maxCooldown = 50;
+            currentCooldown = 0;
         }
 
-        public float rotate(float targetOrientation)
+        public void rotateToward(Vector3 target)
         {
+            Vector3 direction = target - location;
+            float rad = 0;
+            if (direction.y==0)
+            {
+                rad = MathF.PI/2;
+                if (direction.x<0) rad = -rad;
+            }
+            else
+            {
+                rad = MathF.Atan(direction.x/direction.y);
+                if (direction.y<0)
+                    rad += MathF.PI;
+            }
+            orientation = rad; // TODO: add max rotation speed;
+        }
 
-            float direction = 100;
-            return 0;
-            // TODO: fix before ai!
+        public void UpdateCooldown()
+        {
+            if (currentCooldown > 0)
+                currentCooldown -= 1;
+        }
+
+        public void Shoot(GameplayManager gameplay)
+        {
+            if(currentCooldown!=0) return;
+            gameplay.bulletList.Add(new Bullet(
+                location + new Vector3(
+                    MathF.Sin(orientation) * radius * 2,
+                    MathF.Cos(orientation) * radius * 2,
+                    0
+                ),
+                new Vector3(
+                    MathF.Sin(orientation) * MaxBulletSpeed,
+                    MathF.Cos(orientation) * MaxBulletSpeed,
+                    0
+                ),
+                gameplay==GameplayManager.Instance)
+            );
+            currentCooldown = maxCooldown;
         }
 
         public void UpdateMesh()

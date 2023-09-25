@@ -36,12 +36,15 @@ namespace INFOMAIGT.AI
             KeyCode closer = Pathfinder.MapDirectionToPos(myself.location, enemy.location);
 
             // detect whether can direct hit player and keep closing
-            if ((enemy.location - myself.location).magnitude < setting.closingDistance)
+            if (SimpleShoot.CanHit(myself.location, enemy.location, setting.closingDistance))
                 closer = KeyCode.Escape;
 
             // dodge
-            myself.location = SimpleDodge.Dodge(myself, closer, -setting.closingWeight, setting.suicideThreshold);
+            myself.location = SimpleDodge.Dodge(myself, closer, -setting.closingWeight);
             // shoot
+            myself.rotateToward(enemy.location);
+            if(SimpleShoot.CanHit(myself.location, enemy.location, setting.shootingDistance))
+                myself.Shoot(GameplayManager.Instance);
         }
 
     }
