@@ -30,7 +30,7 @@ namespace INFOMAIGT.Map
         public Dictionary<int, Wall> wallMap = new Dictionary<int, Wall>();
 
         [SerializeField]
-        public TextAsset MapData;
+        public TextAsset DefaultMapData;
         public Material WallMaterial;
         [NonSerialized]
         public int width, height;
@@ -181,7 +181,10 @@ namespace INFOMAIGT.Map
         void Start()
         {
             // initiate a map
-            ReadMap(MapData.text);
+            if (LevelManager.Instance == null)                
+                ReadMap(DefaultMapData.text);
+            else
+                ReadMap(LevelManager.currentLevel.mapData.text);
         }
 
         void Update() 

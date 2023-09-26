@@ -84,7 +84,7 @@ namespace INFOMAIGT.Gameplay
             currentCooldown = maxCooldown;
         }
 
-        public void UpdateMesh()
+        public override void UpdateMesh()
         {
             base.UpdateMesh();
             if (artilleryMesh == null)

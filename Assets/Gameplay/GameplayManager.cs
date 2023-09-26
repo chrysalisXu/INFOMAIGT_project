@@ -7,6 +7,7 @@ using UnityEngine;
 
 using INFOMAIGT.Map;
 using INFOMAIGT.AI;
+using INFOMAIGT.UI;
 
 namespace INFOMAIGT.Gameplay
 {
@@ -40,6 +41,9 @@ namespace INFOMAIGT.Gameplay
         // player 1 is PC, others are ai
         public Dictionary<int, Player> playerDict = new Dictionary<int, Player>();
         public List<Bullet> bulletList = new List<Bullet>();
+
+        [NonSerialized]
+        bool paused = false;
 
         public GameplayManager Clone()
         {
@@ -138,9 +142,6 @@ namespace INFOMAIGT.Gameplay
                 }
             }
         }
-
-        
-
 
         public void HandleCollision()
         {
@@ -248,9 +249,17 @@ namespace INFOMAIGT.Gameplay
         {
             if (this != Instance) return;
             // menu
-            if (Input.GetKey("escape")) // TODO: MENU / Restart, now just quit the game
-                Application.Quit();
-            LogicalUpdate();
+            if (Input.GetKey("escape"))
+            {
+                paused = true;
+                UIManager.Instance.ComponentsList["PauseMenu"].gameObject.SetActive(paused);
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                paused = !paused;
+                UIManager.Instance.ComponentsList["PauseMenu"].gameObject.SetActive(paused);
+            }
+            if (!paused) LogicalUpdate();
             DisplayBullet();
             DisplayPlayers();
         }

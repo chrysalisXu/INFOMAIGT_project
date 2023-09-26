@@ -42,7 +42,7 @@ namespace INFOMAIGT.Gameplay
             circleMesh.triangles = standardFilledCircleTriangles;
         }
 
-        public void UpdateMesh()
+        public virtual void UpdateMesh()
         {
             var vertices = circleMesh.vertices;
             for (int i=0; i< CIRCLE_EDGES; i++){
