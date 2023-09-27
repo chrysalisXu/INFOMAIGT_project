@@ -27,12 +27,6 @@ namespace INFOMAIGT.Gameplay
         }
 
         [SerializeField]
-        public Material matPC;
-
-        [SerializeField]
-        public Material matAI;
-
-        [SerializeField]
         public Material matBullet;
 
         [SerializeField]
@@ -59,6 +53,8 @@ namespace INFOMAIGT.Gameplay
                 this==Instance,
                 AIManager.Instance.CreateAI(playerID))
             );
+            UIManager.Instance.ComponentsList[$"UserProfile{playerDict.Count}"].gameObject.SetActive(true);
+            ((ProfileInGame)UIManager.Instance.ComponentsList[$"UserProfile{playerDict.Count}"]).SetPlayer(playerDict[playerID]);
         }
 
         
@@ -135,7 +131,7 @@ namespace INFOMAIGT.Gameplay
                     Vector3 distance = b.location - item.Value.location;
                     if (distance.magnitude < b.radius + item.Value.radius)
                     {
-                        DestroyPlayer(item.Key);
+                        HitPlayer(item.Key);
                         b.alive = false;
                         break;
                     }
@@ -193,7 +189,7 @@ namespace INFOMAIGT.Gameplay
 
         }
 
-        public void DestroyPlayer(int playerID)
+        public void HitPlayer(int playerID)
         {
             // TODO: UI display.
             if (playerDict[playerID].health <= 0)
@@ -203,7 +199,7 @@ namespace INFOMAIGT.Gameplay
             }
             else
             {
-                playerDict[playerID].health -= 1f;
+                playerDict[playerID].health -= 1;
                 if (playerDict[playerID].health == 0)
                     playerDict[playerID].alive = false;
             }
@@ -230,14 +226,10 @@ namespace INFOMAIGT.Gameplay
 
         void DisplayPlayers()
         {
-            RenderParams pc_rp = new RenderParams(matPC);
-            RenderParams ai_rp = new RenderParams(matAI);
-            RenderParams rp;
             foreach (var item in playerDict)
             {
                 if (!item.Value.alive) continue;
-                if (item.Key == 1) rp = pc_rp;
-                else rp = ai_rp;
+                RenderParams rp = new RenderParams(item.Value.ai.setting.material);
                 item.Value.UpdateMesh();
                 Graphics.RenderMesh(rp, item.Value.circleMesh, 0, Matrix4x4.Translate(Vector3.zero));
                 Graphics.RenderMesh(rp, item.Value.artilleryMesh, 0, Matrix4x4.Translate(Vector3.zero));

@@ -26,7 +26,7 @@ namespace INFOMAIGT.Gameplay
 
         public int maxCooldown, currentCooldown;
 
-        public float health = 5;
+        public int health = 5;
 
         public Player(Vector3 position, bool needRendering, BaseAI initAI)
         {

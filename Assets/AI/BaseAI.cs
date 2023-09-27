@@ -15,7 +15,7 @@ namespace INFOMAIGT.AI
         // logic:
         // if can shoot pc -> shoot and dodge 
         // else -> go closer (to end the game quicker)
-        AISetting setting;
+        public AISetting setting;
 
         public BaseAI(int playerID)
         {

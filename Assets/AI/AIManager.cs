@@ -13,12 +13,16 @@ namespace INFOMAIGT.AI
         public float closingDistance;   // how far ai will stop closing when it can shoot you, min 10
         public float shootingDistance;  // how far ai will start to shoot when it can shoot you, min 10
         public float closingWeight;     // how eager ai is when trying to move closer, min 0
+        public string name;
+        public Material material;
 
         public AISetting(int id){
             playerID = id;
             closingDistance = 10;
             shootingDistance = 10;
             closingWeight = 1;
+            name = "AI";
+            material = AIManager.Instance.defaultMatAI;
         }
     }
 
@@ -40,6 +44,9 @@ namespace INFOMAIGT.AI
 
         [SerializeField]
         AISetting [] settingsAI;
+
+        [SerializeField]
+        public Material defaultMatAI;
 
         public BaseAI CreateAI(int playerID)
         {

@@ -20,13 +20,19 @@ namespace INFOMAIGT.UI
         {
             rect = GetComponent<RectTransform>();
             UIManager.Instance.ComponentsList.Add(elementID, this);
+            if (defaultInactive) gameObject.SetActive(false);
         }
 
         void Start()
         {
-            if (defaultInactive) gameObject.SetActive(false);
             UIStart();
         }
         public virtual void UIStart(){}
+
+        void Update()
+        {
+            UIUpdate();
+        }
+        public virtual void UIUpdate(){}
     }
 }
