@@ -19,7 +19,7 @@ namespace INFOMAIGT.Gameplay
         public float MaxBulletSpeed = 0.5f;
 
         public Mesh artilleryMesh = null;
-        public float artilleryWidth = 0.3f;
+        public float artilleryWidth = 0.6f;
 
         public BaseAI ai;
 
