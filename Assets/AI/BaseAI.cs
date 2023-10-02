@@ -41,8 +41,9 @@ namespace INFOMAIGT.AI
 
             // dodge
             myself.location = SimpleDodge.Dodge(myself, closer, -setting.closingWeight);
+            myself.FixRotation();
             // shoot
-            myself.rotateToward(enemy.location);
+            myself.RotateToward(enemy.location);
             if(SimpleShoot.CanHit(myself.location, enemy.location, setting.shootingDistance))
                 myself.Shoot(GameplayManager.Instance);
         }

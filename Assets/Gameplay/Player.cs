@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using INFOMAIGT.Map;
 using INFOMAIGT.AI;
 
 namespace INFOMAIGT.Gameplay
@@ -13,7 +14,7 @@ namespace INFOMAIGT.Gameplay
     {
         public float orientation = 0;
         public float maxVelocity = 0.2f;
-        public float maxRotationSpeed = 0.1f;
+        public float maxRotationSpeed = 0.01f;
 
         public float MaxBulletSpeed = 0.5f;
 
@@ -41,7 +42,22 @@ namespace INFOMAIGT.Gameplay
             currentCooldown = 0;
         }
 
-        public void rotateToward(Vector3 target)
+        public void FixRotation(float maxDegree = 0.01f)
+        {
+            if (!MapManager.Instance.RaycastAgainstWall(location, GetBulletStartLocation()))
+                return;
+            orientation += maxDegree;
+            if (!MapManager.Instance.RaycastAgainstWall(location, GetBulletStartLocation()))
+                return;
+            orientation -= 2 * maxDegree;
+            if (!MapManager.Instance.RaycastAgainstWall(location, GetBulletStartLocation()))
+                return;
+            orientation += maxDegree;
+            FixRotation(maxDegree + 0.01f);
+        }
+
+
+        public void RotateToward(Vector3 target)
         {
             Vector3 direction = target - location;
             float rad = 0;
@@ -56,7 +72,10 @@ namespace INFOMAIGT.Gameplay
                 if (direction.y<0)
                     rad += MathF.PI;
             }
+            float oldrad = orientation;
             orientation = rad; // TODO: add max rotation speed;
+            if (MapManager.Instance.RaycastAgainstWall(location, GetBulletStartLocation()))
+                orientation = oldrad;
         }
 
         public void UpdateCooldown()
@@ -65,15 +84,20 @@ namespace INFOMAIGT.Gameplay
                 currentCooldown -= 1;
         }
 
+        public Vector3 GetBulletStartLocation()
+        {
+            return location + new Vector3(
+                MathF.Sin(orientation) * radius * 2,
+                MathF.Cos(orientation) * radius * 2,
+                0
+            );
+        }
+
         public void Shoot(GameplayManager gameplay)
         {
             if(currentCooldown!=0) return;
             gameplay.bulletList.Add(new Bullet(
-                location + new Vector3(
-                    MathF.Sin(orientation) * radius * 2,
-                    MathF.Cos(orientation) * radius * 2,
-                    0
-                ),
+                GetBulletStartLocation(),
                 new Vector3(
                     MathF.Sin(orientation) * MaxBulletSpeed,
                     MathF.Cos(orientation) * MaxBulletSpeed,

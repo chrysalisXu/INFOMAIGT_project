@@ -87,26 +87,29 @@ namespace INFOMAIGT.Gameplay
                 pc.location = MapManager.Instance.GetFixedPlayerPosition(
                     pc.location, KeyCode.UpArrow, pc.maxVelocity, pc.radius
                 );
+                pc.FixRotation();
             }
             if (Input.GetKey("a")){
                 pc.location = MapManager.Instance.GetFixedPlayerPosition(
                     pc.location, KeyCode.LeftArrow, pc.maxVelocity, pc.radius
                 );
+                pc.FixRotation();
             }
             if (Input.GetKey("s")){
                 pc.location = MapManager.Instance.GetFixedPlayerPosition(
                     pc.location, KeyCode.DownArrow, pc.maxVelocity, pc.radius
                 );
+                pc.FixRotation();
             }
             if (Input.GetKey("d")){
                 pc.location = MapManager.Instance.GetFixedPlayerPosition(
                     pc.location, KeyCode.RightArrow, pc.maxVelocity, pc.radius
                 );
+                pc.FixRotation();
             }
 
             // rotation
-            Vector3 mouseDirection =  - pc.location;
-            pc.rotateToward(pcCamera.ScreenToWorldPoint(Input.mousePosition));
+            pc.RotateToward(pcCamera.ScreenToWorldPoint(Input.mousePosition));
 
             // shoot!
             if (Input.GetMouseButtonDown(0))
