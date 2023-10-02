@@ -14,6 +14,12 @@ namespace INFOMAIGT.Map
         public string desc;
         public Sprite image;
         public TextAsset mapData;
+        // for autogeneration
+        public bool random;
+        public int width;
+        public int height;
+        public int[] playerIDs;
+        public float percentWalls;
     }
 
     public class LevelManager : MonoBehaviour

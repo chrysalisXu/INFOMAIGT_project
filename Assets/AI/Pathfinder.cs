@@ -17,6 +17,11 @@ namespace INFOMAIGT.AI
         {
             Vector2Int startMapPos = MapManager.GetMapXY(start);
             Vector2Int endMapPos = MapManager.GetMapXY(end);
+            return Pathfinder.MapDirectionToPos(startMapPos, endMapPos);
+        }
+        
+        public static KeyCode MapDirectionToPos(Vector2Int startMapPos, Vector2Int endMapPos)
+        {
             if (startMapPos == endMapPos) return KeyCode.Escape;
 
             // cur pos, (from direction, distance to travel, visited before)

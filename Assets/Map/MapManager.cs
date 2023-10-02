@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using INFOMAIGT.Gameplay;
+using INFOMAIGT.AI;
 
 namespace INFOMAIGT.Map
 {
@@ -42,6 +43,13 @@ namespace INFOMAIGT.Map
                 (int)MathF.Floor(precisePos.y / Wall.size)
             );
         }
+        public Vector2Int GetMapXY(int wallID)
+        {
+            return new Vector2Int(
+                wallID % height,
+                (int)MathF.Floor(wallID / height)
+            );
+        }
 
         public int GetWallID(int x, int y){return y * height + x;}
         public int GetWallID(float preciseX, float preciseY){
@@ -74,17 +82,105 @@ namespace INFOMAIGT.Map
                     if (lines[y+1][x] == 'x')
                     {
                         wallMap.Add(GetWallID(x, y), new Wall(x, y));
-                        
                     }
-                        
                     else if (lines[y+1][x] != 'o')
                         GameplayManager.Instance.CreatePlayer(
                             new Vector3((x+0.5f) * Wall.size, (y+0.5f) * Wall.size, 0),
                             Int32.Parse(Char.ToString(lines[y+1][x]))
                         );
                 }
-                
             }
+        }
+
+        public bool GenerateMap(LevelSetting setting)
+        {
+            // init
+            width = setting.width;
+            height = setting.height;
+
+            int [,] wallsTemp = new int [height, width];
+            int [,] wallsTempNew = new int [height, width];
+            // generate random noise
+            for (int y=0; y<height; y++)
+                for (int x=0; x<width; x++)
+                {
+                    if ((y==0 || x==0 || y==height-1 || x==width-1) || 
+                        UnityEngine.Random.value < setting.percentWalls)
+                        wallsTemp[y,x] = 1;
+                    else
+                        wallsTemp[y,x] = 0;
+                }
+
+            // a single process
+            int countNeighborWalls(int x, int y)
+            {
+                int count = wallsTemp[y-1,x-1] + wallsTemp[y-1,x] + wallsTemp[y-1,x+1]
+                + wallsTemp[y,x-1] + wallsTemp[y,x+1] + wallsTemp[y+1,x-1]
+                + wallsTemp[y+1,x] + wallsTemp[y+1,x+1];
+                if (y==1 || x==1 || y==height-2 || x==width-2)
+                    count -= 2;
+                return count;
+            }
+            void wallReduction()
+            {
+                for (int y=0; y<height; y++)
+                    for (int x=0; x<width; x++)
+                    {
+                        if (y==0 || x==0 || y==height-1 || x==width-1) wallsTempNew[y,x] = 1;
+                        else if (countNeighborWalls(x,y) >= 4)
+                            wallsTempNew[y,x] = 1;
+                        else
+                            wallsTempNew[y,x] = 0;
+                    }
+                wallsTemp = wallsTempNew;
+            }
+            // multi times
+            wallReduction();
+            wallReduction();
+            wallReduction();
+
+            // initiate map
+            List <int> voidMap = new List<int>();
+            for (int y=0; y<height; y++)
+                for (int x=0; x<width; x++)
+                    if (wallsTemp[y,x] == 1)
+                        wallMap.Add(GetWallID(x, y), new Wall(x, y));
+                    else
+                        voidMap.Add(GetWallID(x, y));
+            
+            // place users
+            var sysRand = new System.Random();
+            List<int> playerPlaces = new List<int>();
+            foreach(int playerID in setting.playerIDs)
+            {
+                int voidID = sysRand.Next(voidMap.Count);
+                if (playerPlaces.Count > 0)
+                {
+                    for (int i=0; i<6; i++)
+                    {
+                        if (i==5)// terrible map, usually separated places
+                        {
+                            wallMap.Clear();
+                            return false;
+                        }
+                        if (Pathfinder.MapDirectionToPos(GetMapXY(voidMap[voidID]), GetMapXY(playerPlaces[0]))!=KeyCode.Escape)
+                            break;
+                        voidID = sysRand.Next(voidMap.Count);
+                    }
+                }
+                playerPlaces.Add(voidMap[voidID]);
+                voidMap.Remove(voidID);
+            }
+            for (int i=0; i<playerPlaces.Count; i++)
+            {
+                int x = playerPlaces[i] % height;
+                int y = (playerPlaces[i]-x) / height;
+                GameplayManager.Instance.CreatePlayer(
+                    new Vector3((x+0.5f) * Wall.size, (y+0.5f) * Wall.size, 0),
+                    setting.playerIDs[i]
+                );
+            }
+            return true;
         }
 
         // stop player from passing walls like ghost
@@ -184,7 +280,12 @@ namespace INFOMAIGT.Map
             if (LevelManager.Instance == null)                
                 ReadMap(DefaultMapData.text);
             else
-                ReadMap(LevelManager.currentLevel.mapData.text);
+            {
+                if (LevelManager.currentLevel.random==false)
+                    ReadMap(LevelManager.currentLevel.mapData.text);
+                else
+                    while(!GenerateMap(LevelManager.currentLevel)){};
+            }
         }
 
         void Update() 
