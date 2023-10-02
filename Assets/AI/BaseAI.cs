@@ -16,6 +16,7 @@ namespace INFOMAIGT.AI
         // if can shoot pc -> shoot and dodge 
         // else -> go closer (to end the game quicker)
         public AISetting setting;
+        public float aiDebuffRadiance;
 
         public BaseAI(int playerID)
         {
@@ -40,10 +41,19 @@ namespace INFOMAIGT.AI
                 closer = KeyCode.Escape;
 
             // dodge
-            myself.location = SimpleDodge.Dodge(myself, closer, -setting.closingWeight);
+            myself.location = SimpleDodge.Dodge(myself, closer, -setting.closingWeight, setting.advanceDodgeOn);
             myself.FixRotation();
             // shoot
             myself.RotateToward(enemy.location);
+            
+            if (setting.randomShootRadiance!=0) // make ai shoot less precise
+            {
+                aiDebuffRadiance = (aiDebuffRadiance + UnityEngine.Random.value * 0.01f) % (2 * setting.randomShootRadiance);
+                float debuffRad = aiDebuffRadiance > setting.randomShootRadiance
+                                ? 2 * setting.randomShootRadiance - aiDebuffRadiance : aiDebuffRadiance;
+                myself.orientation += aiDebuffRadiance - setting.randomShootRadiance/2;
+                myself.FixRotation();
+            }
             if(SimpleShoot.CanHit(myself.location, enemy.location, setting.shootingDistance))
                 myself.Shoot(GameplayManager.Instance);
         }

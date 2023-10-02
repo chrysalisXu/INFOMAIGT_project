@@ -12,8 +12,11 @@ namespace INFOMAIGT.AI
         public int playerID;
         public float closingDistance;   // how far ai will stop closing when it can shoot you, min 10
         public float shootingDistance;  // how far ai will start to shoot when it can shoot you, min 10
-        public float closingWeight;     // how eager ai is when trying to move closer, min 0
+        public float closingWeight;         // how eager ai is when trying to move closer, min 0
         public string name;
+        public bool advanceDodgeOn;         // whether ai care bullets' speed
+        public float randomShootRadiance;   // ai shoot angle rand
+        public float additionalCoolDown;    // additional cooldown mulitplier
         public Material material;
 
         public AISetting(int id){
@@ -22,6 +25,9 @@ namespace INFOMAIGT.AI
             shootingDistance = 10;
             closingWeight = 1;
             name = "AI";
+            advanceDodgeOn = true;
+            randomShootRadiance = 0;
+            additionalCoolDown = 0;
             material = AIManager.Instance.defaultMatAI;
         }
     }

@@ -2138,13 +2138,28 @@ MonoBehaviour:
     shootingDistance: 100
     closingWeight: 0.1
     name: Player
+    advanceDodgeOn: 0
+    randomShootRadiance: 0
+    additionalCoolDown: 0
     material: {fileID: 2100000, guid: 4a7731b6bdabaa54daafcce86490743e, type: 2}
   - playerID: 2
     closingDistance: 20
     shootingDistance: 100
     closingWeight: 0.1
-    name: Computer
+    name: Easy AI
+    advanceDodgeOn: 0
+    randomShootRadiance: 3
+    additionalCoolDown: 2
     material: {fileID: 2100000, guid: 5daea732d4d3715479788d461784f0a3, type: 2}
+  - playerID: 3
+    closingDistance: 20
+    shootingDistance: 100
+    closingWeight: 0.1
+    name: Hard AI
+    advanceDodgeOn: 1
+    randomShootRadiance: 0
+    additionalCoolDown: 0
+    material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   defaultMatAI: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &1777539419
 Transform:

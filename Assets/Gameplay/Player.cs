@@ -38,7 +38,7 @@ namespace INFOMAIGT.Gameplay
                 UpdateMesh();
             }
             ai = initAI;
-            maxCooldown = 50;
+            maxCooldown = (int)MathF.Ceiling(50 * (1 + ai.setting.additionalCoolDown));
             currentCooldown = 0;
         }
 

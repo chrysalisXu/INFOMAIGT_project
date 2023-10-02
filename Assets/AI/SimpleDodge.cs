@@ -33,7 +33,7 @@ namespace INFOMAIGT.AI
             return MathF.Pow(closestDistance / (2 * player.radius), 10); // will be hit!!!
         }
 
-        public static Vector3 Dodge(Player myself, KeyCode closingDirection, float closingWeight)
+        public static Vector3 Dodge(Player myself, KeyCode closingDirection, float closingWeight, bool advanceDodgeOn)
         {
             // posible options.
             Dictionary<Vector3, float> targetDict = new Dictionary<Vector3, float>();
@@ -86,9 +86,12 @@ namespace INFOMAIGT.AI
                 float rawWeight = weight;
                 foreach(Bullet bullet in GameplayManager.Instance.bulletList)
                     // the weight of a bullet 10 meters away = 1 
-                    rawWeight += 100f/(
-                        (bullet.location - pos).sqrMagnitude * SimpleDodge.HitPathWeight(bullet, myself, pos)
-                    );
+                    if (advanceDodgeOn)
+                        rawWeight += 100f/(
+                            (bullet.location - pos).sqrMagnitude * SimpleDodge.HitPathWeight(bullet, myself, pos)
+                        );
+                    else
+                        rawWeight += 100f/((bullet.location - pos).sqrMagnitude);
                 // Debug.Log($"pos:{pos}, raw:{rawWeight}, weight:{weight}" );
                 
                 if (rawWeight < target.directionWeight)
