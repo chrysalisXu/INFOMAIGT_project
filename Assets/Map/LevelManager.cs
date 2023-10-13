@@ -36,13 +36,20 @@ namespace INFOMAIGT.Map
         }
 
         [SerializeField]
-        public LevelSetting [] levels;
+        public LevelSetting [] initLevels;
+
+        [NonSerialized]
+        public static LevelSetting [] levels;
         [NonSerialized]
         public static LevelSetting currentLevel;
 
         void Awake()
         {
-            DontDestroyOnLoad(transform.gameObject);
+            LevelManager.levels = initLevels;
+            if (LevelManager.Instance == this)
+                DontDestroyOnLoad(gameObject);
+            else
+                Destroy(gameObject);
         }
 
         public void SelectLevel(int selectID)

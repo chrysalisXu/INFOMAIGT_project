@@ -4,8 +4,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using INFOMAIGT.Gameplay;
 using INFOMAIGT.AI;
+using INFOMAIGT.Data;
 
 namespace INFOMAIGT.Map
 {
@@ -286,6 +288,7 @@ namespace INFOMAIGT.Map
                 else
                     while(!GenerateMap(LevelManager.currentLevel)){};
             }
+            DataManager.Instance.LevelStart();
         }
 
         void Update() 

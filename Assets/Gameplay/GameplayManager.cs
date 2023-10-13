@@ -8,6 +8,7 @@ using UnityEngine;
 using INFOMAIGT.Map;
 using INFOMAIGT.AI;
 using INFOMAIGT.UI;
+using INFOMAIGT.Data;
 
 namespace INFOMAIGT.Gameplay
 {
@@ -38,6 +39,8 @@ namespace INFOMAIGT.Gameplay
 
         [NonSerialized]
         bool paused = false;
+        [NonSerialized]
+        bool finished = false;
 
         public GameplayManager Clone()
         {
@@ -82,6 +85,7 @@ namespace INFOMAIGT.Gameplay
             if (this != Instance) return; // TODO: switch to AI in AI prediction mode
             if (!pc.alive) return;
 
+            Vector3 lastLocation = pc.location;
             // move
             if (Input.GetKey("w")){
                 pc.location = MapManager.Instance.GetFixedPlayerPosition(
@@ -107,6 +111,8 @@ namespace INFOMAIGT.Gameplay
                 );
                 pc.FixRotation();
             }
+
+            DataManager.Instance.report.pcTravelDistance += (pc.location - lastLocation).magnitude;
 
             // rotation
             pc.RotateToward(pcCamera.ScreenToWorldPoint(Input.mousePosition));
@@ -197,15 +203,37 @@ namespace INFOMAIGT.Gameplay
             // TODO: UI display.
             if (playerDict[playerID].health <= 0)
             {
-                Debug.Log($"Player {playerID} Lost!");
                 playerDict[playerID].alive = false;
             }
             else
             {
                 playerDict[playerID].health -= 1;
                 if (playerDict[playerID].health == 0)
+                {
                     playerDict[playerID].alive = false;
+                    CheckWinner();
+                }
             }
+        }
+
+        public void CheckWinner()
+        {
+            if (playerDict[1].alive == true)
+                foreach (var (id, player) in playerDict)
+                    if ((id != 1) && (player.alive == true)) return; // not finished yet
+            finished = true;
+            
+            int winner = 0;
+            int winnerHP = 0;
+            foreach (var (id, player) in playerDict)
+                if (player.health > winnerHP)
+                {
+                    winner = id;
+                    winnerHP = player.health;
+                }
+            DataManager.Instance.report.winnerID = winner;
+            DataManager.Instance.report.winnerHP = winnerHP;
+            UIManager.Instance.ComponentsList["FinishMenu"].gameObject.SetActive(true);
         }
 
         public void DestroyDeadBullets()
@@ -244,17 +272,26 @@ namespace INFOMAIGT.Gameplay
         {
             if (this != Instance) return;
             // menu
-            if (Input.GetKey("escape"))
+            if (!finished)
             {
-                paused = true;
-                UIManager.Instance.ComponentsList["PauseMenu"].gameObject.SetActive(paused);
+                if (Input.GetKey("escape"))
+                {
+                    paused = true;
+                    UIManager.Instance.ComponentsList["PauseMenu"].gameObject.SetActive(paused);
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    paused = !paused;
+                    UIManager.Instance.ComponentsList["PauseMenu"].gameObject.SetActive(paused);
+                }
+                if (!paused) 
+                {
+                    LogicalUpdate();
+                    DataManager.Instance.report.framesCount += 1;
+                    DataManager.Instance.report.levelTime += Time.deltaTime;
+                }
+                else DataManager.Instance.report.pauseframes += 1;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                paused = !paused;
-                UIManager.Instance.ComponentsList["PauseMenu"].gameObject.SetActive(paused);
-            }
-            if (!paused) LogicalUpdate();
             DisplayBullet();
             DisplayPlayers();
         }

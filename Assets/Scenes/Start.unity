@@ -792,6 +792,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359006376}
   m_CullTransparentMesh: 1
+--- !u!1 &393534050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 393534052}
+  - component: {fileID: 393534051}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &393534051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393534050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14c65592522fdc4dbe6909c0d4a4722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  report:
+    levelName: 
+    winnerID: 0
+    winnerHP: 0
+    framesCount: 0
+    levelTime: 0
+    pauseframes: 0
+    pcTravelDistance: 0
+    inputTimes: 0
+    bulletsFiredPC: 0
+    pcRating: 0
+--- !u!4 &393534052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393534050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 154.9367, y: 113.081215, z: 1.081174}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &424792469
 GameObject:
   m_ObjectHideFlags: 0
@@ -5565,51 +5620,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967ff3a5c25a4b74fb5b74c2c86fe662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
+  initLevels:
   - name: Level 1
-    desc: Basic
-    image: {fileID: 21300000, guid: 7ec57fc4db17ee84d86ae6e65319b52b, type: 3}
-    mapData: {fileID: 4900000, guid: 16096c4e9e911e848abb735271cbd4b6, type: 3}
-    random: 0
-    width: 0
-    height: 0
-    playerIDs: 
-    percentWalls: 0
-  - name: Level 2
-    desc: walls
+    desc: 
     image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: 392a3347d267cc44ab5eb92fa2139d07, type: 3}
-    random: 0
-    width: 0
-    height: 0
-    playerIDs: 
-    percentWalls: 0
-  - name: Level 3
-    desc: example
-    image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: fc6b2be8717ac3a4e8ee6bf3d1648d6a, type: 3}
-    random: 0
-    width: 0
-    height: 0
-    playerIDs: 
-    percentWalls: 0
-  - name: Level 4
-    desc: multiplayer
-    image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: cff4179c7133ac8478c2cfd9cde558ab, type: 3}
-    random: 0
-    width: 0
-    height: 0
-    playerIDs: 
-    percentWalls: 0
-  - name: Infinite
-    desc: random generated map
-    image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: cff4179c7133ac8478c2cfd9cde558ab, type: 3}
+    mapData: {fileID: 0}
     random: 1
     width: 20
     height: 20
     playerIDs: 0100000002000000
+    percentWalls: 0
+  - name: Level 2
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 0}
+    random: 1
+    width: 20
+    height: 20
+    playerIDs: 0100000002000000
+    percentWalls: 0.3
+  - name: Level 3
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 0}
+    random: 1
+    width: 20
+    height: 20
+    playerIDs: 0100000003000000
     percentWalls: 0.35
 --- !u!4 &2061525053
 Transform:
