@@ -21,6 +21,24 @@ namespace INFOMAIGT.UI
         public Button NextLevelButton;
         [SerializeField]
         public Button RestartButton;
+        [SerializeField]
+        public Image background;
+        bool transition = false;
+
+        public override void UIUpdate()
+        {
+            if (background.color.a == 1) return;
+            if (background.color.a >= 0.95f)
+                background.color = new Color(1,1,1,1);
+            else
+                background.color = new Color(1, 1, 1, background.color.a * 1.05f);
+        }
+
+        public void Transition()
+        {
+            background.color = new Color(1,1,1,0.4f);
+            transition = true;
+        }
 
         public void LateUpdate()
         {
@@ -36,7 +54,7 @@ namespace INFOMAIGT.UI
                 RestartButton.gameObject.SetActive(true);
                 ResultText.text = "You Lose";
             }
-
+            if(!transition) Transition();
         }
 
         public void ClickRestart()

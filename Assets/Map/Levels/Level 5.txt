@@ -1,7 +1,7 @@
 20 20
 xxxxxxxxxxxxxxxxxxxx
 xoooooooooooxoooooox
-xooo3oooooooxoo2ooox
+xooo1oooooooxoo9ooox
 xoooooooxoooooooooox
 xoooooooxoooooooooox
 xoooooooxoooooooooox
@@ -16,6 +16,6 @@ xoooxxxoooooooooooox
 xoooooooooooxxxoooox
 xoooooooooooooooooox
 xxxooooooooooooooxxx
-xooo1oooooxoooooooox
+xooo5oooooxoooooooox
 xoooooooooxoooooooox
 xxxxxxxxxxxxxxxxxxxx

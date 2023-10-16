@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using INFOMAIGT.Data;
 using INFOMAIGT.Map;
 
 namespace INFOMAIGT.UI
@@ -15,7 +16,8 @@ namespace INFOMAIGT.UI
         public void ClickStart()
         {
             // temporary data collection
-            LevelManager.Instance.SelectLevel(0);
+            if (DataManager.Instance.winTimes == 0)
+                LevelManager.Instance.SelectLevel(0);
             SceneManager.LoadScene("Main");
             return;
 

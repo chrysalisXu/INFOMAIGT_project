@@ -832,6 +832,8 @@ MonoBehaviour:
     inputTimes: 0
     bulletsFiredPC: 0
     pcRating: 0
+  winTimes: 0
+  loseTimes: 0
 --- !u!4 &393534052
 Transform:
   m_ObjectHideFlags: 0
@@ -3051,7 +3053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117b2202e3a826b49884601acb3875f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementID: 
+  elementID: permit
   defaultInactive: 0
 --- !u!114 &1078868307
 MonoBehaviour:
@@ -6044,10 +6046,64 @@ MonoBehaviour:
     desc: 
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: fc6b2be8717ac3a4e8ee6bf3d1648d6a, type: 3}
-    random: 1
+    random: 0
     width: 20
     height: 20
     playerIDs: 0100000003000000
+    percentWalls: 0.35
+  - name: Level 4
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 4900000, guid: 234012385fa556b45b6de9f262438c24, type: 3}
+    random: 0
+    width: 20
+    height: 20
+    playerIDs: 0100000003000000
+    percentWalls: 0.35
+  - name: Level 5
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 4900000, guid: d310b8ab7abc88d4cb3e73359fa82d0d, type: 3}
+    random: 0
+    width: 20
+    height: 20
+    playerIDs: 0100000003000000
+    percentWalls: 0.35
+  - name: Level 6
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 4900000, guid: ac24c174a878afb42b84245c81fe2623, type: 3}
+    random: 0
+    width: 20
+    height: 20
+    playerIDs: 0100000003000000
+    percentWalls: 0.35
+  - name: Level 7
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 4900000, guid: e351c7e3a8f68154fa48b1fce4bce23c, type: 3}
+    random: 0
+    width: 20
+    height: 20
+    playerIDs: 0100000003000000
+    percentWalls: 0.35
+  - name: Level 8
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 4900000, guid: 5e8a16a75821aa64ab079e7e4053bc19, type: 3}
+    random: 0
+    width: 20
+    height: 20
+    playerIDs: 0100000003000000
+    percentWalls: 0.35
+  - name: Level 8
+    desc: 
+    image: {fileID: 0}
+    mapData: {fileID: 4900000, guid: 5e8a16a75821aa64ab079e7e4053bc19, type: 3}
+    random: 1
+    width: 20
+    height: 20
+    playerIDs: 01000000060000000700000008000000
     percentWalls: 0.35
 --- !u!4 &2061525053
 Transform:

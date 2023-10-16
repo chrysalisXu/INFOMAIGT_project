@@ -65,6 +65,8 @@ namespace INFOMAIGT.Data
         }
 
         public LevelData report;
+        public int winTimes = 0;
+        public int loseTimes = 0;
 
         void Awake()
         {
@@ -80,6 +82,7 @@ namespace INFOMAIGT.Data
         {
             WWWForm form = new WWWForm();
             var request = UnityWebRequest.Post(DataManager.COOKIE_URL, form);
+            request.SendWebRequest();
         }
 
         public void LevelStart()
@@ -89,6 +92,8 @@ namespace INFOMAIGT.Data
 
         public void SendReport()
         {
+            if (report.winnerID == 1) winTimes ++;
+            else loseTimes ++;
             WWWForm form = new WWWForm();
             form.AddField("levelName", report.levelName);
             form.AddField("winnerID", report.winnerID);
