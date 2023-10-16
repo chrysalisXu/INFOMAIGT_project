@@ -116,8 +116,8 @@ namespace INFOMAIGT.Gameplay
                 GameObject soundEffectObject = GameObject.Find("SoundEffect");
                 if (soundEffectObject != null)
                 {
-                    AudioSource shootEffect = soundEffectObject.GetComponent<AudioSource>();
-                    shootEffect.Play();
+                    AudioSource[] audioSources = soundEffectObject.GetComponents<AudioSource>();
+                    audioSources[0].Play();
                 }
             }
         }

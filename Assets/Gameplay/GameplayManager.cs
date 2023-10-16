@@ -37,6 +37,9 @@ namespace INFOMAIGT.Gameplay
         public Dictionary<int, Player> playerDict = new Dictionary<int, Player>();
         public List<Bullet> bulletList = new List<Bullet>();
 
+        GameObject soundEffect;
+        AudioSource[] audioSources;
+
         [NonSerialized]
         bool paused = false;
         [NonSerialized]
@@ -213,6 +216,7 @@ namespace INFOMAIGT.Gameplay
             // TODO: UI display.
             if (playerDict[playerID].health <= 0)
             {
+                audioSources[2].Play();
                 playerDict[playerID].alive = false;
             }
             else
@@ -220,6 +224,7 @@ namespace INFOMAIGT.Gameplay
                 playerDict[playerID].health -= 1;
                 if (playerDict[playerID].health == 0)
                 {
+                    audioSources[2].Play();
                     playerDict[playerID].alive = false;
                     CheckWinner();
                 }
@@ -243,6 +248,11 @@ namespace INFOMAIGT.Gameplay
                 }
             DataManager.Instance.report.winnerID = winner;
             DataManager.Instance.report.winnerHP = winnerHP;
+
+            if (winner == 1) { 
+                audioSources[1].Play();
+            }
+
             UIManager.Instance.ComponentsList["FinishMenu"].gameObject.SetActive(true);
         }
 
@@ -315,6 +325,12 @@ namespace INFOMAIGT.Gameplay
             }
             DisplayBullet();
             DisplayPlayers();
+        }
+
+        private void Start()
+        {
+            soundEffect = GameObject.Find("SoundEffect");
+            audioSources = soundEffect.GetComponents<AudioSource>();
         }
     }
 }

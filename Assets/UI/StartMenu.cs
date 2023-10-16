@@ -13,8 +13,21 @@ namespace INFOMAIGT.UI
 {
     public class StartMenu : UIElement
     {
+        private GameObject soundEffect;
+        private AudioSource pressEffect;
+
+        private void Start()
+        {
+            soundEffect = GameObject.Find("SoundEffect");
+            if (soundEffect != null)
+            {
+                pressEffect = soundEffect.GetComponent<AudioSource>();
+            }
+        }
+
         public void ClickStart()
         {
+            // pressEffect.Play();
             // temporary data collection
             if (DataManager.Instance.winTimes == 0)
                 LevelManager.Instance.SelectLevel(0);
@@ -27,12 +40,14 @@ namespace INFOMAIGT.UI
 
         public void ClickCredits()
         {
+            pressEffect.Play();
             UIManager.Instance.ComponentsList["Credits"].gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
 
         public void ClickSetting()
         {
+            pressEffect.Play();
             return; // TODO
             UIManager.Instance.ComponentsList["Setting"].gameObject.SetActive(true);
             gameObject.SetActive(false);
@@ -40,6 +55,7 @@ namespace INFOMAIGT.UI
 
         public void ClickHelp()
         {
+            pressEffect.Play();
             UIManager.Instance.ComponentsList["Help"].gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
