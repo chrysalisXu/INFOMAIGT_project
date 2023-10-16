@@ -14,6 +14,8 @@ namespace INFOMAIGT.AI
         public float shootingDistance;  // how far ai will start to shoot when it can shoot you, min 10
         public float closingWeight;         // how eager ai is when trying to move closer, min 0
         public string name;
+        public bool targetPlayerOnly;
+        public bool dodgeOff;               // stop dodging, wandering around
         public bool advanceDodgeOn;         // whether ai care bullets' speed
         public float randomShootRadiance;   // ai shoot angle rand
         public float additionalCoolDown;    // additional cooldown mulitplier
@@ -25,6 +27,8 @@ namespace INFOMAIGT.AI
             shootingDistance = 10;
             closingWeight = 1;
             name = "AI";
+            targetPlayerOnly = true;
+            dodgeOff = false;
             advanceDodgeOn = true;
             randomShootRadiance = 0;
             additionalCoolDown = 0;

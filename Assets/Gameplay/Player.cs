@@ -7,19 +7,20 @@ using UnityEngine;
 
 using INFOMAIGT.Map;
 using INFOMAIGT.AI;
+using INFOMAIGT.Data;
 
 namespace INFOMAIGT.Gameplay
 {
     public class Player : Circle
     {
         public float orientation = 0;
-        public float maxVelocity = 0.2f;
+        public float maxVelocity = 0.4f;
         public float maxRotationSpeed = 0.01f;
 
-        public float MaxBulletSpeed = 0.5f;
+        public float MaxBulletSpeed = 0.8f;
 
         public Mesh artilleryMesh = null;
-        public float artilleryWidth = 0.6f;
+        public float artilleryWidth = 0.4f;
 
         public BaseAI ai;
 
@@ -106,6 +107,9 @@ namespace INFOMAIGT.Gameplay
                 gameplay==GameplayManager.Instance)
             );
             currentCooldown = maxCooldown;
+
+            if (ai.setting.playerID==1)
+                DataManager.Instance.report.bulletsFiredPC += 1;
         }
 
         public override void UpdateMesh()

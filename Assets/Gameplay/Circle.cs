@@ -10,7 +10,7 @@ namespace INFOMAIGT.Gameplay
     public class Circle
     {
         public Vector3 location;
-        public float radius = 4f;
+        public float radius = 3f;
         static int CIRCLE_EDGES = 20;
         public Mesh circleMesh;
 

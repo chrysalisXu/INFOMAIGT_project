@@ -10,11 +10,11 @@ namespace INFOMAIGT.Gameplay
     public class Bullet : Circle
     {
         public Vector3 velocity;
-        int lifespan; // TODO: life span of bullet.
+        public int lifespan = 2;                   // TODO: life span of bullet.
         public bool alive = true;
         public Bullet(Vector3 position, Vector3 initVelocity, bool needRendering)
         {
-            radius = 0.8f;
+            radius = 0.6f;
             location = position;
             velocity = initVelocity;
             if (needRendering){

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 using INFOMAIGT.Map;
 
@@ -30,25 +31,28 @@ namespace INFOMAIGT.Data
 
         public LevelData(string name)
         {
-            levelName = name;
+            levelName           = name;
 
-            winnerID = 0;
-            winnerHP = 0;
+            winnerID            = 0;
+            winnerHP            = 0;
 
-            framesCount = 0;
-            levelTime = 0;
-            pauseframes = 0;
+            framesCount         = 0;
+            levelTime           = 0;
+            pauseframes         = 0;
 
-            pcTravelDistance = 0;
-            inputTimes = 0; // TODO
+            pcTravelDistance    = 0;
+            inputTimes          = 0; // TODO
 
-            bulletsFiredPC = 0; // TODO
-            pcRating = 0;
+            bulletsFiredPC      = 0; // TODO
+            pcRating            = 0;
         }
     }
 
     public class DataManager : MonoBehaviour
     {
+        const string REPORT_URL = "http://3.76.106.191:1197/api/ai_data_collection/report";
+        const string COOKIE_URL = "http://3.76.106.191:1197/api/ai_data_collection/cookie";
+
         // singleton
         private static DataManager _instance = null;
         public static DataManager Instance
@@ -64,10 +68,18 @@ namespace INFOMAIGT.Data
 
         void Awake()
         {
-            if (DataManager.Instance == this)
-                DontDestroyOnLoad(gameObject);
-            else
+            if (DataManager.Instance != this)
+            {
                 Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public void CheckCookie()
+        {
+            WWWForm form = new WWWForm();
+            var request = UnityWebRequest.Post(DataManager.COOKIE_URL, form);
         }
 
         public void LevelStart()
@@ -77,7 +89,20 @@ namespace INFOMAIGT.Data
 
         public void SendReport()
         {
-            
+            WWWForm form = new WWWForm();
+            form.AddField("levelName", report.levelName);
+            form.AddField("winnerID", report.winnerID);
+            form.AddField("winnerHP", report.winnerHP);
+            form.AddField("framesCount", report.framesCount);
+            form.AddField("pauseframes", report.pauseframes);
+            form.AddField("levelTime", report.levelTime.ToString());
+            form.AddField("pcTravelDistance", report.pcTravelDistance.ToString());
+            form.AddField("inputTimes", report.inputTimes);
+            form.AddField("bulletsFiredPC", report.bulletsFiredPC);
+            form.AddField("pcRating", report.pcRating);
+
+            var request = UnityWebRequest.Post(DataManager.REPORT_URL, form);
+            request.SendWebRequest();
         }
     }
 }

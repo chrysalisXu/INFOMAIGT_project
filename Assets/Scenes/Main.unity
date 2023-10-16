@@ -1435,7 +1435,7 @@ RectTransform:
   m_Children:
   - {fileID: 1747887764}
   m_Father: {fileID: 1134293536}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1647,7 +1647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -160}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 1280, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614491562
@@ -2197,6 +2197,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832760541}
   m_CullTransparentMesh: 1
+--- !u!1 &920369173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 920369174}
+  - component: {fileID: 920369176}
+  - component: {fileID: 920369175}
+  m_Layer: 5
+  m_Name: resume Desc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &920369174
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920369173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1134293536}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -220}
+  m_SizeDelta: {x: 1280, y: 160}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &920369175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920369173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 186bd1e095bee53438ff6d3746cf1f86, type: 3}
+    m_FontSize: 60
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 4
+    m_MaxSize: 120
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '[Space] to continue'
+--- !u!222 &920369176
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920369173}
+  m_CullTransparentMesh: 1
 --- !u!1 &946047423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,6 +2747,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 614491561}
+  - {fileID: 920369174}
   - {fileID: 541671968}
   - {fileID: 2124627965}
   m_Father: {fileID: 1533600713}
@@ -3336,12 +3417,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3878,6 +3959,8 @@ MonoBehaviour:
     shootingDistance: 100
     closingWeight: 0.1
     name: Player
+    targetPlayerOnly: 0
+    dodgeOff: 0
     advanceDodgeOn: 0
     randomShootRadiance: 0
     additionalCoolDown: 0
@@ -3886,21 +3969,58 @@ MonoBehaviour:
     closingDistance: 20
     shootingDistance: 100
     closingWeight: 0.1
-    name: Easy AI
+    name: Jeery
+    targetPlayerOnly: 0
+    dodgeOff: 1
     advanceDodgeOn: 0
-    randomShootRadiance: 3
+    randomShootRadiance: 1
     additionalCoolDown: 2
     material: {fileID: 2100000, guid: 5daea732d4d3715479788d461784f0a3, type: 2}
   - playerID: 3
     closingDistance: 20
     shootingDistance: 100
     closingWeight: 0.1
-    name: Hard AI
-    advanceDodgeOn: 1
-    randomShootRadiance: 0
-    additionalCoolDown: 0
-    material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  defaultMatAI: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 3}
+    name: Bob
+    targetPlayerOnly: 0
+    dodgeOff: 1
+    advanceDodgeOn: 0
+    randomShootRadiance: 1
+    additionalCoolDown: 2
+    material: {fileID: 2100000, guid: fab274f871ca5314aad1c1ef667b7320, type: 2}
+  - playerID: 4
+    closingDistance: 20
+    shootingDistance: 100
+    closingWeight: 0.1
+    name: Alice
+    targetPlayerOnly: 0
+    dodgeOff: 0
+    advanceDodgeOn: 0
+    randomShootRadiance: 1.5
+    additionalCoolDown: 5
+    material: {fileID: 2100000, guid: 62cadcb143e5aed43a396324d8c3729d, type: 2}
+  - playerID: 5
+    closingDistance: 20
+    shootingDistance: 100
+    closingWeight: 0.1
+    name: luna
+    targetPlayerOnly: 0
+    dodgeOff: 0
+    advanceDodgeOn: 0
+    randomShootRadiance: 1
+    additionalCoolDown: 2
+    material: {fileID: 2100000, guid: 8f89164b143632e4ab41c18eda5a9007, type: 2}
+  - playerID: 6
+    closingDistance: 20
+    shootingDistance: 100
+    closingWeight: 0.1
+    name: luna
+    targetPlayerOnly: 1
+    dodgeOff: 0
+    advanceDodgeOn: 0
+    randomShootRadiance: 1
+    additionalCoolDown: 2
+    material: {fileID: 2100000, guid: 6ccfee6dbe75e76499e8c32c1112e0e7, type: 2}
+  defaultMatAI: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &1777539419
 Transform:
   m_ObjectHideFlags: 0
@@ -4711,7 +4831,7 @@ RectTransform:
   m_Children:
   - {fileID: 1914625633}
   m_Father: {fileID: 1134293536}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}

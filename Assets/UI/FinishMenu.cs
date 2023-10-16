@@ -41,7 +41,10 @@ namespace INFOMAIGT.UI
 
         public void ClickRestart()
         {
-            if(CheckRated()) SceneManager.LoadScene("Main");
+            if(CheckRated()) {
+                DataManager.Instance.SendReport();
+                SceneManager.LoadScene("Main");
+            }
         }
 
         public void ClickNext()
@@ -52,13 +55,18 @@ namespace INFOMAIGT.UI
                 if (levelID >= LevelManager.levels.Length)
                     levelID = LevelManager.levels.Length - 1;
                 LevelManager.Instance.SelectLevel(levelID);
+                DataManager.Instance.SendReport();
                 SceneManager.LoadScene("Main");
             }
         }
 
         public void ClickQuit()
         {
-            if(CheckRated()) SceneManager.LoadScene("Start");
+            if(CheckRated())
+            {
+                DataManager.Instance.SendReport();
+                SceneManager.LoadScene("Start");
+            }
         }
 
         public bool CheckRated()

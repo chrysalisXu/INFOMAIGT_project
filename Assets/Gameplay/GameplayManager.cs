@@ -119,7 +119,10 @@ namespace INFOMAIGT.Gameplay
 
             // shoot!
             if (Input.GetMouseButtonDown(0))
+            {
                 pc.Shoot(this);
+                DataManager.Instance.report.inputTimes ++;
+            }
         }
 
         public void MoveAI()
@@ -159,6 +162,13 @@ namespace INFOMAIGT.Gameplay
                 );
                 if (MapManager.Instance.wallMap.ContainsKey(wallID))
                 {
+                    b.lifespan -= 1;
+                    if (b.lifespan<0)
+                    {
+                        b.alive = false;
+                        continue;
+                    }
+
                     Vector3 lastLocation = b.location - b.velocity;
                     if ((int)MathF.Floor(b.location.x / Wall.size) == (int)MathF.Floor(lastLocation.x / Wall.size))
                     {
@@ -267,6 +277,16 @@ namespace INFOMAIGT.Gameplay
             }
         }
 
+        public int GetKeyboardInputCounts()
+        {
+            int count = 0;
+            if (Input.GetKeyDown("w")) count ++;
+            if (Input.GetKeyDown("a")) count ++;
+            if (Input.GetKeyDown("s")) count ++;
+            if (Input.GetKeyDown("d")) count ++;
+            return count;
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -287,6 +307,7 @@ namespace INFOMAIGT.Gameplay
                 if (!paused) 
                 {
                     LogicalUpdate();
+                    DataManager.Instance.report.inputTimes += GetKeyboardInputCounts();
                     DataManager.Instance.report.framesCount += 1;
                     DataManager.Instance.report.levelTime += Time.deltaTime;
                 }

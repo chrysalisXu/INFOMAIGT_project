@@ -1,21 +1,21 @@
 20 20
 xxxxxxxxxxxxxxxxxxxx
 xooooooooooooxooooox
-xooooooooooooxooooox
-xooo2ooooooooooo3oox
-xoooooooooooooooooox
-xooooooooooooxooooox
+xoooooooooxooxooooox
+xooo1oooooxooooo3oox
+xoooooooooxoooooooox
+xoooooooooxooxooooox
 xooooooooooooxxxooxx
 xoooooooooooooooooox
 xoooooooooooooooooox
+xooxxxxxxxxxooooooox
 xoooooooooooooooooox
 xoooooooooooooooooox
 xoooooooooooooooooox
 xoooooooooooooooooox
 xoooooooooooooooooox
 xoooooooooooooooooox
-xoooooooooooooooooox
-xoo1ooooooooooooooox
+xoo2ooooooooooooooox
 xoooooooooooooooooox
 xoooooooooooooooooox
 xxxxxxxxxxxxxxxxxxxx

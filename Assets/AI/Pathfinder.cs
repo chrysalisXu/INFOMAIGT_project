@@ -79,6 +79,7 @@ namespace INFOMAIGT.AI
             }
 
             Vector2Int pathPos = NextDict[endMapPos].Item1;
+            int roadCost = 0;
             while(true)
             {
                 if (VisitedDict[pathPos].Item1 == startMapPos){
