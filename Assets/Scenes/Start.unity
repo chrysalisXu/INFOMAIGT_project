@@ -6072,7 +6072,7 @@ MonoBehaviour:
   - name: Level 6
     desc: 
     image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: ac24c174a878afb42b84245c81fe2623, type: 3}
+    mapData: {fileID: 4900000, guid: 8d276f65a9912e147886999e64df2a24, type: 3}
     random: 0
     width: 20
     height: 20
@@ -6081,7 +6081,7 @@ MonoBehaviour:
   - name: Level 7
     desc: 
     image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: e351c7e3a8f68154fa48b1fce4bce23c, type: 3}
+    mapData: {fileID: 4900000, guid: ac24c174a878afb42b84245c81fe2623, type: 3}
     random: 0
     width: 20
     height: 20
@@ -6090,13 +6090,13 @@ MonoBehaviour:
   - name: Level 8
     desc: 
     image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: 5e8a16a75821aa64ab079e7e4053bc19, type: 3}
+    mapData: {fileID: 4900000, guid: e351c7e3a8f68154fa48b1fce4bce23c, type: 3}
     random: 0
     width: 20
     height: 20
     playerIDs: 0100000003000000
     percentWalls: 0.35
-  - name: Level 8
+  - name: Level 9
     desc: 
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: 5e8a16a75821aa64ab079e7e4053bc19, type: 3}
