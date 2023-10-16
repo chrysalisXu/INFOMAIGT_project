@@ -50,8 +50,8 @@ namespace INFOMAIGT.Data
 
     public class DataManager : MonoBehaviour
     {
-        const string REPORT_URL = "http://3.76.106.191:1197/api/ai_data_collection/report";
-        const string COOKIE_URL = "http://3.76.106.191:1197/api/ai_data_collection/cookie";
+        const string REPORT_URL = "http://api.chrysalisgames.store:1197/api/ai_data_collection/report";
+        const string COOKIE_URL = "http://api.chrysalisgames.store:1197/api/ai_data_collection/cookie";
 
         // singleton
         private static DataManager _instance = null;
@@ -67,6 +67,7 @@ namespace INFOMAIGT.Data
         public LevelData report;
         public int winTimes = 0;
         public int loseTimes = 0;
+        public string sessionID;
 
         void Awake()
         {
@@ -76,6 +77,12 @@ namespace INFOMAIGT.Data
                 return;
             }
             DontDestroyOnLoad(gameObject);
+            makeSession();
+        }
+
+        public void makeSession()
+        {
+            sessionID = DateTime.Now.ToFileTime().ToString() + "-" + UnityEngine.Random.value.ToString();
         }
 
         public void CheckCookie()
@@ -95,6 +102,7 @@ namespace INFOMAIGT.Data
             if (report.winnerID == 1) winTimes ++;
             else loseTimes ++;
             WWWForm form = new WWWForm();
+            form.AddField("sessionID", sessionID);
             form.AddField("levelName", report.levelName);
             form.AddField("winnerID", report.winnerID);
             form.AddField("winnerHP", report.winnerHP);
@@ -107,6 +115,7 @@ namespace INFOMAIGT.Data
             form.AddField("pcRating", report.pcRating);
 
             var request = UnityWebRequest.Post(DataManager.REPORT_URL, form);
+            // request.SetRequestHeader("credentials","include");
             request.SendWebRequest();
         }
     }

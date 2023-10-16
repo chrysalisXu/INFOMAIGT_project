@@ -834,6 +834,7 @@ MonoBehaviour:
     pcRating: 0
   winTimes: 0
   loseTimes: 0
+  sessionID: 
 --- !u!4 &393534052
 Transform:
   m_ObjectHideFlags: 0
@@ -3825,14 +3826,12 @@ MonoBehaviour:
 
 
     We will collect your in-game data to analyze how you feel and why.
-    we will also use cookie to store them.
-
-    Personal data or out-of-game data
-    will not be collected. You can abandon the game in any time. Your data wil be
-    deleted after course.
+    Personal data or out-of-game data will not be collected. You can abandon the
+    game in any time. Your data wil be deleted after course.
 
 
-    Would you please permit us to do so?'
+    Would you please
+    permit us to do so?'
 --- !u!222 &1469413837
 CanvasRenderer:
   m_ObjectHideFlags: 0

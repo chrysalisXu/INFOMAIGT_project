@@ -13,7 +13,7 @@ namespace INFOMAIGT.UI
     {
         public void ClickAgree()
         {
-            DataManager.Instance.CheckCookie();
+            // DataManager.Instance.CheckCookie();
             UIManager.Instance.ComponentsList["StartMenu"].gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
