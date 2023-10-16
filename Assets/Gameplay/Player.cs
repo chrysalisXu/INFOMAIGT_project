@@ -96,7 +96,7 @@ namespace INFOMAIGT.Gameplay
 
         public void Shoot(GameplayManager gameplay)
         {
-            if(currentCooldown!=0) return;
+            if (currentCooldown != 0) return;
             gameplay.bulletList.Add(new Bullet(
                 GetBulletStartLocation(),
                 new Vector3(
@@ -104,12 +104,22 @@ namespace INFOMAIGT.Gameplay
                     MathF.Cos(orientation) * MaxBulletSpeed,
                     0
                 ),
-                gameplay==GameplayManager.Instance)
+                gameplay == GameplayManager.Instance)
             );
             currentCooldown = maxCooldown;
 
-            if (ai.setting.playerID==1)
+            if (ai.setting.playerID == 1)
+            { 
                 DataManager.Instance.report.bulletsFiredPC += 1;
+                
+                // Play shooting sound
+                GameObject soundEffectObject = GameObject.Find("SoundEffect");
+                if (soundEffectObject != null)
+                {
+                    AudioSource shootEffect = soundEffectObject.GetComponent<AudioSource>();
+                    shootEffect.Play();
+                }
+            }
         }
 
         public override void UpdateMesh()
