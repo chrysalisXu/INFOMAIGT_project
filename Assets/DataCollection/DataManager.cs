@@ -50,8 +50,8 @@ namespace INFOMAIGT.Data
 
     public class DataManager : MonoBehaviour
     {
-        const string REPORT_URL = "http://api.chrysalisgames.store:1197/api/ai_data_collection/report";
-        const string COOKIE_URL = "http://api.chrysalisgames.store:1197/api/ai_data_collection/cookie";
+        const string REPORT_URL = "https://api.chrysalisgames.store/api/ai_data_collection/report";
+        const string COOKIE_URL = "https://api.chrysalisgames.store/api/ai_data_collection/cookie";
 
         // singleton
         private static DataManager _instance = null;
