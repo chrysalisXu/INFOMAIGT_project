@@ -2699,7 +2699,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8bd21bcc520623f4ca1e60d6a1de4799, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.295
+  m_Volume: 0.25
   m_Pitch: 1.2
   Loop: 0
   Mute: 0
@@ -3826,19 +3826,18 @@ MonoBehaviour:
     the resulting model works well, we hope to incorporate it into a future version
     to create a game that adapts to your skill level as you play.
 
-    
 
-    This
-    version will ask you to rate how the difficulty of every round felt. You are
-    free to abandon the challenge at any point. We will collect in-game data as you
-    play through, but no personal data will be collected. All data will be deleted
-    after the end of the course.
 
-    
+    This version
+    will ask you to rate how the difficulty of every round felt. You are free to
+    abandon the challenge at any point. We will collect in-game data as you play
+    through, but no personal data will be collected. All data will be deleted after
+    the end of the course.
 
-    If you consent to let us collect your
-    in-game data for the development of our model, click "I Agree" to proceed and
-    have fun!'
+
+
+    If you consent to let us collect your in-game data
+    for the development of our model, click "I Agree" to proceed and have fun!'
 --- !u!222 &1469413837
 CanvasRenderer:
   m_ObjectHideFlags: 0

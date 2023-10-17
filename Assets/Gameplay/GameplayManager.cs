@@ -222,6 +222,11 @@ namespace INFOMAIGT.Gameplay
             else
             {
                 playerDict[playerID].health -= 1;
+                if (playerID != 1)
+                {
+                    audioSources[0].Play();
+                }
+
                 if (playerDict[playerID].health == 0)
                 {
                     audioSources[2].Play();
