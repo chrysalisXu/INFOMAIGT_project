@@ -113,12 +113,12 @@ namespace INFOMAIGT.Gameplay
                 DataManager.Instance.report.bulletsFiredPC += 1;
                 
                 // Play shooting sound
-                GameObject soundEffectObject = GameObject.Find("SoundEffect");
-                if (soundEffectObject != null)
-                {
-                    AudioSource[] audioSources = soundEffectObject.GetComponents<AudioSource>();
-                    audioSources[0].Play();
-                }
+                //GameObject soundEffectObject = GameObject.Find("SoundEffect");
+                //if (soundEffectObject != null)
+                //{
+                //    AudioSource[] audioSources = soundEffectObject.GetComponents<AudioSource>();
+                //    audioSources[0].Play();
+                //}
             }
         }
 
