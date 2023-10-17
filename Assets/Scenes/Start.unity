@@ -3809,7 +3809,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 186bd1e095bee53438ff6d3746cf1f86, type: 3}
-    m_FontSize: 60
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
@@ -3820,18 +3820,25 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'This is a course project to observe users'' feeling on game difficulties.
-    So you can not choose a level manually. A free version of this game will be published
-    later.
+  m_Text: 'This is an alpha version of a game that will serve as an academic project
+    for the course INFOMAIGT. The goal is to construct a player model that captures
+    the perceived difficulty of a given level using only gameplay information. If
+    the resulting model works well, we hope to incorporate it into a future version
+    to create a game that adapts to your skill level as you play.
 
+    
 
-    We will collect your in-game data to analyze how you feel and why.
-    Personal data or out-of-game data will not be collected. You can abandon the
-    game in any time. Your data wil be deleted after course.
+    This
+    version will ask you to rate how the difficulty of every round felt. You are
+    free to abandon the challenge at any point. We will collect in-game data as you
+    play through, but no personal data will be collected. All data will be deleted
+    after the end of the course.
 
+    
 
-    Would you please
-    permit us to do so?'
+    If you consent to let us collect your
+    in-game data for the development of our model, click "I Agree" to proceed and
+    have fun!'
 --- !u!222 &1469413837
 CanvasRenderer:
   m_ObjectHideFlags: 0
