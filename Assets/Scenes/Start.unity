@@ -3820,25 +3820,16 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'This is an alpha version of a game that will serve as an academic project
+  m_Text: "This is an alpha version of a game that will serve as an academic project
     for the course INFOMAIGT. The goal is to construct a player model that captures
     the perceived difficulty of a given level using only gameplay information. If
     the resulting model works well, we hope to incorporate it into a future version
-    to create a game that adapts to your skill level as you play.
-
-    
-
-    This
-    version will ask you to rate how the difficulty of every round felt. You are
-    free to abandon the challenge at any point. We will collect in-game data as you
-    play through, but no personal data will be collected. All data will be deleted
-    after the end of the course.
-
-    
-
-    If you consent to let us collect your
-    in-game data for the development of our model, click "I Agree" to proceed and
-    have fun!'
+    to create a game that adapts to your skill level as you play.\r\n\n\rThis version
+    will ask you to rate how the difficulty of every round felt. You are free to
+    abandon the challenge at any point. We will collect in-game data as you play
+    through, but no personal data will be collected. All data will be deleted after
+    the end of the course.\r\n\n\rIf you consent to let us collect your in-game data
+    for the development of our model, click \"I Agree\" to proceed and have fun!"
 --- !u!222 &1469413837
 CanvasRenderer:
   m_ObjectHideFlags: 0
