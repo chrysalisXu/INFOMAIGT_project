@@ -27,12 +27,12 @@ namespace INFOMAIGT.UI
 
         public void ClickStart()
         {
-            // pressEffect.Play();
+            pressEffect.Play();
             // temporary data collection
-            if (DataManager.Instance.winTimes == 0)
-                LevelManager.Instance.SelectLevel(0);
-            SceneManager.LoadScene("Main");
-            return;
+            // if (DataManager.Instance.winTimes == 0)
+            //     LevelManager.Instance.SelectLevel(0);
+            // SceneManager.LoadScene("Main");
+            // return;
 
             UIManager.Instance.ComponentsList["LevelSelect"].gameObject.SetActive(true);
             gameObject.SetActive(false);

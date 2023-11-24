@@ -4246,7 +4246,7 @@ MonoBehaviour:
     shootingDistance: 100
     closingWeight: 0.1
     name: Jeery
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 1
     advanceDodgeOn: 0
     randomShootRadiance: 1
@@ -4257,7 +4257,7 @@ MonoBehaviour:
     shootingDistance: 100
     closingWeight: 0.1
     name: Bob
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 1
     advanceDodgeOn: 0
     randomShootRadiance: 1
@@ -4268,7 +4268,7 @@ MonoBehaviour:
     shootingDistance: 200
     closingWeight: 0.1
     name: Alice
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 0
     advanceDodgeOn: 0
     randomShootRadiance: 1
@@ -4279,7 +4279,7 @@ MonoBehaviour:
     shootingDistance: 200
     closingWeight: 0.1
     name: luna
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 0
     advanceDodgeOn: 0
     randomShootRadiance: 0.5
@@ -4290,7 +4290,7 @@ MonoBehaviour:
     shootingDistance: 200
     closingWeight: 0.1
     name: Guard
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 0
     advanceDodgeOn: 1
     randomShootRadiance: 0.5
@@ -4301,7 +4301,7 @@ MonoBehaviour:
     shootingDistance: 200
     closingWeight: 0.1
     name: King
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 0
     advanceDodgeOn: 1
     randomShootRadiance: 0.1
@@ -4312,22 +4312,11 @@ MonoBehaviour:
     shootingDistance: 200
     closingWeight: 0.1
     name: Crown
-    targetPlayerOnly: 1
+    targetPlayerOnly: 0
     dodgeOff: 0
     advanceDodgeOn: 1
     randomShootRadiance: 0
     additionalCoolDown: 0
-    material: {fileID: 2100000, guid: 3b03babf2f4980a449b522d1b8e6850f, type: 2}
-  - playerID: 9
-    closingDistance: 20
-    shootingDistance: 200
-    closingWeight: 0.1
-    name: Crown
-    targetPlayerOnly: 1
-    dodgeOff: 0
-    advanceDodgeOn: 0
-    randomShootRadiance: 0.5
-    additionalCoolDown: 1
     material: {fileID: 2100000, guid: 3b03babf2f4980a449b522d1b8e6850f, type: 2}
   defaultMatAI: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &1777539419

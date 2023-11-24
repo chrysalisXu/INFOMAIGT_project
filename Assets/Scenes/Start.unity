@@ -3470,7 +3470,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: I  Agree
+  m_Text: Great !
 --- !u!222 &1261483889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3828,8 +3828,8 @@ MonoBehaviour:
     will ask you to rate how the difficulty of every round felt. You are free to
     abandon the challenge at any point. We will collect in-game data as you play
     through, but no personal data will be collected. All data will be deleted after
-    the end of the course.\r\n\n\rIf you consent to let us collect your in-game data
-    for the development of our model, click \"I Agree\" to proceed and have fun!"
+    the end of the course.\r\n\nThe class is over and data collection part is turned
+    off. Enjoy your play."
 --- !u!222 &1469413837
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6247,7 +6247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initLevels:
   - name: Level 1
-    desc: 
+    desc: Easy AI
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: 16096c4e9e911e848abb735271cbd4b6, type: 3}
     random: 0
@@ -6256,7 +6256,7 @@ MonoBehaviour:
     playerIDs: 0100000002000000
     percentWalls: 0
   - name: Level 2
-    desc: 
+    desc: First multiplayer level
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: 392a3347d267cc44ab5eb92fa2139d07, type: 3}
     random: 0
@@ -6265,7 +6265,7 @@ MonoBehaviour:
     playerIDs: 010000000200000003000000
     percentWalls: 0.3
   - name: Level 3
-    desc: 
+    desc: Middle AI 1v1
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: fc6b2be8717ac3a4e8ee6bf3d1648d6a, type: 3}
     random: 0
@@ -6274,58 +6274,31 @@ MonoBehaviour:
     playerIDs: 0100000003000000
     percentWalls: 0.35
   - name: Level 4
-    desc: 
+    desc: Hard AI civil war
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: 234012385fa556b45b6de9f262438c24, type: 3}
     random: 0
     width: 20
     height: 20
-    playerIDs: 0100000003000000
+    playerIDs: 010000000600000007000000
     percentWalls: 0.35
   - name: Level 5
-    desc: 
+    desc: Hard AI 1v1
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: d310b8ab7abc88d4cb3e73359fa82d0d, type: 3}
     random: 0
     width: 20
     height: 20
-    playerIDs: 0100000003000000
+    playerIDs: 0100000008000000
     percentWalls: 0.35
-  - name: Level 6
-    desc: 
-    image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: 8d276f65a9912e147886999e64df2a24, type: 3}
-    random: 0
-    width: 20
-    height: 20
-    playerIDs: 0100000003000000
-    percentWalls: 0.35
-  - name: Level 7
-    desc: 
-    image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: ac24c174a878afb42b84245c81fe2623, type: 3}
-    random: 0
-    width: 20
-    height: 20
-    playerIDs: 0100000003000000
-    percentWalls: 0.35
-  - name: Level 8
-    desc: 
-    image: {fileID: 0}
-    mapData: {fileID: 4900000, guid: e351c7e3a8f68154fa48b1fce4bce23c, type: 3}
-    random: 0
-    width: 20
-    height: 20
-    playerIDs: 0100000003000000
-    percentWalls: 0.35
-  - name: Level 9
-    desc: 
+  - name: Endless Mode
+    desc: random map with 2 hard AI
     image: {fileID: 0}
     mapData: {fileID: 4900000, guid: 5e8a16a75821aa64ab079e7e4053bc19, type: 3}
     random: 1
     width: 20
     height: 20
-    playerIDs: 01000000060000000700000008000000
+    playerIDs: 010000000700000008000000
     percentWalls: 0.35
 --- !u!4 &2061525053
 Transform:
