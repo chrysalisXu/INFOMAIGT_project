@@ -19,8 +19,8 @@ namespace INFOMAIGT.UI
 
         public override void UIStart()
         {
-            hint.text = $"level {DataManager.Instance.winTimes+1}";
-            hint2.text = $"lost {DataManager.Instance.loseTimes}";
+            hint.text = $"Win {DataManager.Instance.winTimes}";
+            hint2.text = $"Lose {DataManager.Instance.loseTimes}";
         }
     }
 }
